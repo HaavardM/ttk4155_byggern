@@ -3,18 +3,16 @@
 #endif
 
 #include <util/delay.h>
-#include "led.h"
+#include "uart.h"
 
 int main(){
-	led_init();
-
-	while(1){
-		led_turn_on();
-		_delay_ms(1000);
-
-		led_turn_off();
-		_delay_ms(1000);
-	}
+       USART_init(9600);
+       while(1 == 1) {
+           USART_putchar('H');
+           USART_putchar('E');
+           USART_putchar('S');
+           _delay_ms(1000);
+       }
 
 	return 0;
 }
