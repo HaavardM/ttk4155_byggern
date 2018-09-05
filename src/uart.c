@@ -46,10 +46,16 @@ ISR(USART0_TXC_vect) {
 int USART_putchar(char c) {
     unsigned int start_index = tx_buffer_start_index % TX_BUFFER_SIZE;
     unsigned int end_index = tx_buffer_end_index % TX_BUFFER_SIZE;
+    
+    //Write if available
     if((UCSR0A & (1 << UDRE0))) {
         UDR0 = c;
         return 0; 
     }
+    
+    //If buffer is full, wait
+    while(start_index == end_index && tx_buffer_end_index != 0);
+    
     tx_buffer[end_index] = c;
     ++tx_buffer_end_index;
     return 0;
