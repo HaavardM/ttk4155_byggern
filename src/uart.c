@@ -4,7 +4,7 @@
 
 #include "uart.h"
 #define RX_BUFFER_SIZE 100
-#define TX_BUFFER_SIZE 100
+#define TX_BUFFER_SIZE 200
 
 
 unsigned int rx_buffer_start_index = 0;
@@ -35,15 +35,13 @@ ISR(USART0_RXC_vect) {
 ISR(USART0_TXC_vect) {
     unsigned int start_index = tx_buffer_start_index % TX_BUFFER_SIZE;
     unsigned int end_index = tx_buffer_end_index % TX_BUFFER_SIZE;
-    
-    if(start_index != end_index) {
-        UDR0 = tx_buffer[start_index];
-        ++tx_buffer_start_index;
-    }
+    UDR0 = tx_buffer[start_index];
+    ++tx_buffer_start_index;
 }
 
 
 int USART_putchar(char c) {
+    /*cli();
     unsigned int start_index = tx_buffer_start_index % TX_BUFFER_SIZE;
     unsigned int end_index = tx_buffer_end_index % TX_BUFFER_SIZE;
     
@@ -53,11 +51,14 @@ int USART_putchar(char c) {
         return 0; 
     }
     
-    //If buffer is full, wait
-    while(start_index == end_index && tx_buffer_end_index != 0);
+    while(tx_buffer_end_index - tx_buffer_start_index > TX_BUFFER_SIZE) {}
     
     tx_buffer[end_index] = c;
     ++tx_buffer_end_index;
+    sei();
+    */
+    while(!(UCSR0A & (1 << UDRE0)));
+    UDR0 = c;
     return 0;
 } 
     
@@ -72,15 +73,18 @@ int IO_USART_get(FILE* f) {
 }
 
 int USART_recvchar() {
+    cli();
     unsigned int end_index = rx_buffer_end_index % RX_BUFFER_SIZE;
     unsigned int start_index = rx_buffer_start_index % RX_BUFFER_SIZE;
     
     
     if (end_index == start_index) {
+        sei();
         return -1;
     } else {
         int c = rx_buffer[start_index];
         ++rx_buffer_start_index;
+        sei();
         return c;
     }
     
@@ -103,7 +107,7 @@ void USART_init(unsigned int baud_rate) {
     //Set frame format
     UCSR0C = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
     
-    sei();
+    //sei();
 
     fdevopen(IO_USART_put, IO_USART_get);
 }
