@@ -1,8 +1,5 @@
 #include<avr/io.h>
 #include "uart.h"
-#ifndef F_CPU
-#define F_CPU 1000000
-#endif
 
 void USART_init(unsigned int baud_rate) {
     //Set baud rate
