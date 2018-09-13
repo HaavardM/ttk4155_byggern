@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "external_memory.h"
 #include "uart.h"
+#include "adc.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
@@ -15,8 +16,13 @@ int main(){
        USART_init(BAUD);
        init_external_memory(); 
        while(1 == 1) { 
-           SRAM_test();
-           _delay_ms(1000);
+           unsigned char jy = adc_read(0);
+           unsigned char jx = adc_read(1);
+           unsigned char s1 = adc_read(2);
+           unsigned char s2 = adc_read(3);
+           
+           printf("Joystick X: %d, Joystick Y: %d, Slider 1: %d, Slider 2: %d\n\r", jx, jy, s1, s2);
+           _delay_ms(100);
        }
 
 	return 0;
