@@ -16,10 +16,10 @@ int main(){
        USART_init(BAUD);
        init_external_memory(); 
        while(1 == 1) { 
-           unsigned char jy = adc_read(0);
-           unsigned char jx = adc_read(1);
-           unsigned char s1 = adc_read(2);
-           unsigned char s2 = adc_read(3);
+           int jy = adc_read(0);
+           int jx = adc_read(1);
+           int s1 = adc_read(2);
+           int s2 = adc_read(3);
            
            printf("Joystick X: %d, Joystick Y: %d, Slider 1: %d, Slider 2: %d\n\r", jx, jy, s1, s2);
            _delay_ms(100);
