@@ -1,5 +1,5 @@
 #ifndef ADC_H
 #define ADC_H
 
-unsigned char adc_read(int channel);
+int adc_read(unsigned char channel);
 #endif
