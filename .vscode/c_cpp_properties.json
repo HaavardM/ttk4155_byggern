@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/haavard/AscendNTNU/catkin_ws/devel/include",
+                "/opt/ros/kinetic/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/ascend_utilities/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/control_fsm/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/control_debug/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/control_test_nodes/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/mission_debugger/include",
+                "/home/haavard/AscendNTNU/catkin_ws/src/control_path_planner/planner/include",
+                "/home/haavard/ROSWorkshop/catkin_ws/src/ros_workshop/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
