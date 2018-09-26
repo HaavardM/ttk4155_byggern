@@ -84,42 +84,21 @@ void oled_write_char_inverse(char c) {
     }
 }
 
-void oled_write_string(char* s, uint8_t page) {
+void write_string(char* s, uint8_t page, uint8_t column, void (*write_func)(char)) {
     oled_set_page_range(page, page);
-    oled_set_column_range(0, NUM_COLUMNS - 1);
+    oled_set_column_range(column, NUM_COLUMNS - 1);
     char c;
     for (uint8_t i = 0; i < NUM_COLUMNS / 8 && (c = *(s+i)) != '\0'; ++i) {
-        oled_write_char(c);
+        write_func(c);
     }
 }
 
-void oled_write_string_inverse(char* s, uint8_t page) {
-    oled_set_page_range(page, page);
-    oled_set_column_range(0, NUM_COLUMNS - 1);
-    char c;
-    for (uint8_t i = 0; i < NUM_COLUMNS / 8 && (c = *(s+i)) != '\0'; ++i) {
-        oled_write_char_inverse(c);
-    }
+void oled_write_string(char* s, uint8_t page, uint8_t column) {
+    write_string(s, page, column, oled_write_char);
+}
+
+void oled_write_string_inverse(char* s, uint8_t page, uint8_t column) {
+    write_string(s, page, column, oled_write_char_inverse);
 }
 
 
-
-
-void write_HES() {
-    oled_set_page_range(0, 0);
-    oled_set_column_range(0, NUM_COLUMNS - 1);
-    
-    oled_write_char('H');
-    oled_write_char('E');
-    oled_write_char('S');
-}
-
-void oled_home() {
-    write_c(0x40);
-
-}
-
-void oled_reset() {
-    write_c(0xae);
-    write_c(0xaf);
-}
