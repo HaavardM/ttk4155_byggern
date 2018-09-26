@@ -10,7 +10,7 @@ int read_joystick_x(){
 	return pos_x;
 }
 int read_joystick_y() {
-	int pos_y = adc_read(2);
+	int pos_y = adc_read(0);
 	if (pos_y < 10 && pos_y > -10){
 		pos_y = 0;
 	}
