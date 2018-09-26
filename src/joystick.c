@@ -1,6 +1,6 @@
 #include "joystick.h"
 #include "adc.h"
-
+#include <avr/io.h>
 
 int read_joystick_x(){
 	int pos_x = adc_read(1);
@@ -19,9 +19,9 @@ int read_joystick_y() {
 
 void init_joystick_select() {
 	DDRB &= ~(1 << PB0);	
-	PORTB &= ~(1 << PB0):	
+	PORTB &= ~(1 << PB0);	
 }
 
-bool read_joystick_select() {	
+int read_joystick_select() {	
 	return (PINB | (1 << PB0));
 }
