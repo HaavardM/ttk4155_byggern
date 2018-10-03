@@ -17,11 +17,11 @@ int read_joystick_y() {
 	return pos_y;
 }
 
-void init_joystick_select() {
+void init_joystick() {
 	DDRB &= ~(1 << PB0);	
-	PORTB &= ~(1 << PB0);	
+	PORTB |= (1 << PB0);	
 }
 
 int read_joystick_select() {	
-	return (PINB | (1 << PB0));
+	return !(PINB & (1 << PB0));
 }

@@ -53,16 +53,6 @@ void ui_display() {
     }
 }
 
-
-
-/*---Exposed functions---------------------------*/
-
-
-void ui_init() {
-    current_item_p = UI_MAIN_MENU_ENTRYPOINT;
-    ui_display();
-}
-
 void ui_move_up() {
     current_item_p = current_item_p->prev;
     ui_display();
@@ -78,10 +68,20 @@ void ui_select() {
     current_item_p = current_item_p->on_select(current_item_p);
 }
 
+
+/*---Exposed functions---------------------------*/
+
+
+void ui_init() {
+    current_item_p = UI_MAIN_MENU_ENTRYPOINT;
+    init_joystick();
+    ui_display();
+}
+
 void ui_update() {
     static int last_y = 0;
+    static int last_selected = 0;
     int curr_y = read_joystick_y();
-    printf("%d\n\r", curr_y);
     if (last_y < 20 && last_y > -20) {
         if(curr_y >= 20) {
             ui_move_up();
@@ -90,6 +90,14 @@ void ui_update() {
         }
     }
     last_y = curr_y;
+    if (read_joystick_select()) {
+        if(!last_selected) {
+            ui_select();
+            last_selected = 1;
+        }
+    } else {
+        last_selected = 0;
+    }
 }
 
 
