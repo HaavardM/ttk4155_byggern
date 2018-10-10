@@ -100,6 +100,3 @@ void ui_update() {
     }
 }
 
-
-
-

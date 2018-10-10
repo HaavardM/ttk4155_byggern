@@ -23,10 +23,14 @@ int main(){
        spi_init();
        MCP2515_init();
        while(1 == 1) { 
-           MCP2515_write(0x41, 0xFF);
-           uint8_t data = MCP2515_read(0x41);
-           printf("%d\n\r", data);
            ui_update();
+           can_message_t msg;
+           msg.id = 512;
+           msg.length = 3;
+           msg.data[0] = 'H';
+           msg.data[1] = 'E';
+           msg.data[2] = 'S';
+           can_msg_send(&msg);
            _delay_ms(10);
        }
 
