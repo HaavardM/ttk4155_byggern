@@ -50,20 +50,20 @@ void handle_new_messages() {
     if(int_flag & 0x1) {
         can_msg_read(0, &msg);
         messages[0] = msg;
-        printf("Something\n\r");
     }
     if(int_flag & 0x2) {
         can_msg_read(1, &msg);
         messages[1] = msg;
-        printf("Else\n\r");
     }
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
-ISR(INT0_vect) {
-    handle_new_messages();
-}
 
+ISR(INT0_vect) 
+{
+    handle_new_messages();
+    printf("IDs %d, %d\n\r", messages[0].id, messages[1].id);
+}
 
 void MCP2515_init() {
     DDRB |= (1 << PINB4);
@@ -71,11 +71,9 @@ void MCP2515_init() {
     MCP2515_reset();
     MCP2515_bit_modify(0x0F, (1 << 6), (7 << 5));
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
-    cli();
+    GICR |=(1 << INT0); 
     MCUCR |= (1 << ISC01);
     MCUCR &=~(1 << ISC00);
-    GICR |= (1 << INT0); 
-    sei();
 }
 
 void MCP2515_set_SS() {
@@ -164,11 +162,6 @@ int can_msg_send(can_message_t* msg_p) {
     MCP2515_write(TXB0DLC + buffer_id * 0x10, &msg_p->length, 1);
     MCP2515_write(TXB0D0 + buffer_id * 0x10, msg_p->data, msg_p->length);
     MCP2515_rts(buffer_id);
-    tx_ctrl_status = MCP2515_read(TXB0CTRL);
-    if(tx_ctrl_status & (0x7 << 4)) {
-        MCP2515_bit_modify(TXB0CTRL + buffer_id * 0x10, 0x0, (1 << 3));
-        return -1;
-    }
     
     if(++buffer_id > 2) {
         buffer_id = 0;

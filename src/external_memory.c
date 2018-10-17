@@ -4,8 +4,8 @@
 #include "external_memory.h"
 
 void init_external_memory() {
-    MCUCR |= (1 << SRE);
     SFIOR |= (1 << XMM2);
+    MCUCR |= (1 << SRE);
 }
 
 void SRAM_test(void) {
