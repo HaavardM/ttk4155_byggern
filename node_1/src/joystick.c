@@ -1,4 +1,5 @@
 #include "joystick.h"
+#include "mcp2515.h"
 #include "adc.h"
 #include <avr/io.h>
 
@@ -24,4 +25,24 @@ void init_joystick() {
 
 int read_joystick_select() {	
 	return !(PINB & (1 << PB0));
+}
+
+
+void joystick_update() {
+    static int last_x = 0;
+    static int last_y = 0;
+    
+    int x = read_joystick_x();
+    int y = read_joystick_y();
+    
+    if(x != last_x || y != last_y) {
+        can_message_t msg;
+        msg.id = 1;
+        msg.length = 2;
+        msg.data[0] = x + 127;
+        msg.data[1] = y + 127;
+        can_msg_send(&msg);
+    }
+    last_x = x;
+    last_y = y;
 }
