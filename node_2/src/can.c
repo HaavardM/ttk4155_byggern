@@ -11,11 +11,15 @@
 
 
 void can_init() {
+    //Initialize MCP
     MCP2515_init();
     //MCP2515_bit_modify(CANINTE, 0x3, 0x3);
     //GICR |=(1 << INT0); 
     //MCUCR |= (1 << ISC01);
     //MCUCR &=~(1 << ISC00);
+
+    //Clear interrupts
+    MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
 int ready_to_transmit(uint8_t buffer_id) {

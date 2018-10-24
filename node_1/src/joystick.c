@@ -1,5 +1,6 @@
 #include "joystick.h"
 #include "mcp2515.h"
+#include "can.h"
 #include "adc.h"
 #include <avr/io.h>
 
