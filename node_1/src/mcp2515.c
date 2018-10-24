@@ -8,19 +8,20 @@
 #include <stdio.h>
 #include "spi.h"
 #include "mcp2515.h"
+#include "mcp2515_registers.h"
 
 
 
 void MCP2515_init() {
-    DDRB |= (1 << PINB4) | (1 << PINB0);
-    PORTB |= (1 << PB4) | (1 << PB0);
-    MCP2515_reset();
-    printf("%d\n\r", MCP2515_read(0xE));
-    MCP2515_bit_modify(0x60, 0xFF, 0b01100100); 
+    //Slave select for MCP2515
+    DDRB |= (1 << PINB4);
+    PORTB |= (1 << PB4);
+    
+    //Reset device and enter config mode
+    MCP2515_reset(); 
+    
+    //Set normal mode
     MCP2515_bit_modify(0xF, 0, (0x7 << 5));
-    _delay_us(100);
-    printf("%d\n\r", MCP2515_read(0xE));
-    handle_new_messages();
 }
 
 void MCP2515_set_SS() {

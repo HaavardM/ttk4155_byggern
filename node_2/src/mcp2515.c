@@ -7,13 +7,23 @@
 #include <stdio.h>
 #include "spi.h"
 #include "mcp2515.h"
+#include "mcp2515_registers.h"
 
 void MCP2515_init() {
     DDRB |= (1 << PB7) | (1 << PB0);
     PORTB |= (1 << PB7);
     MCP2515_reset();
-    MCP2515_bit_modify(CANCTRL, 0x0, (7 << 5));
+    //Set filter0 criterias - only accept ID 0
+    MCP2515_bit_modify(RXF0SIDH, 0, 0xFF);
+    MCP2515_bit_modify(RXF0SIDL, (1 << SID0), (7 << SID0));
+    MCP2515_bit_modify(RXM0SIDH, 0xFF, 0xFF);
+    MCP2515_bit_modify(RXM0SIDL, (7 << SID0), (7 << SID0));
     
+    //Use filter0 for RXB0
+    MCP2515_bit_modify(RXB0CTRL, (1 << RXM0), 1 | (1 << RXM0));
+    
+    //Request normal mode
+    MCP2515_bit_modify(CANCTRL, 0x0, (7 << 5));
 }
 
 void MCP2515_set_SS() {

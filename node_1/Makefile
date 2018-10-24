@@ -15,7 +15,7 @@ TARGET_CPU := atmega162
 TARGET_DEVICE := m162
 
 CC := avr-gcc
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -I include -Wall
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -I include -I ../common -Wall
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 

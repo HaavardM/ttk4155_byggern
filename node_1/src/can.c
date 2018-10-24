@@ -22,7 +22,6 @@ void handle_new_messages() {
         can_msg_read(1, &msg);
         messages[1] = msg;
     }
-    MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
 
@@ -39,10 +38,13 @@ int ready_to_transmit(uint8_t buffer_id) {
 
 void can_init() {
     MCP2515_init();
+    //Enable interrupts
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
-    GICR |=(1 << INT0); 
+    GICR  |=(1 << INT0); 
     MCUCR |= (1 << ISC01);
     MCUCR &=~(1 << ISC00);
+    //Clear current interrupts
+    MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
 int can_msg_send(can_message_t* msg_p) {
@@ -67,8 +69,6 @@ int can_msg_send(can_message_t* msg_p) {
     MCP2515_write(TXB0DLC + buffer_id * 0x10, &msg_p->length, 1);
     MCP2515_write(TXB0D0 + buffer_id * 0x10, msg_p->data, msg_p->length);
     MCP2515_rts(buffer_id);
-    
-    _delay_us(100);
     volatile uint8_t status = MCP2515_read(TXB0CTRL + buffer_id * 0x10);
     return status;
 }
