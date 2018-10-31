@@ -6,8 +6,8 @@
 #define PWM_FREQUENCY (F_CPU / PRESCALE)
 #define PWM_PERIOD 20 / 1000
 #define PWM_TIMER_STEPS (PWM_FREQUENCY * PWM_PERIOD - 1)
-#define PWM_MIN (PWM_FREQUENCY * 9)  / 10000 
-#define PWM_MAX (PWM_FREQUENCY * 21) / 10000
+#define PWM_MIN (PWM_FREQUENCY * 10)  / 10000 
+#define PWM_MAX (PWM_FREQUENCY * 20) / 10000
 
 #include "pwm.h"
 #include "avr/io.h"
