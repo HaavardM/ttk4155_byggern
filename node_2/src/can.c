@@ -11,16 +11,33 @@
 #include "mcp2515_registers.h"
 
 
+can_callback_func on_received[2] = {NULL, NULL};
 void can_init() {
     //Initialize MCP
     MCP2515_init();
-    //MCP2515_bit_modify(CANINTE, 0x3, 0x3);
-    //GICR |=(1 << INT0); 
-    //MCUCR |= (1 << ISC01);
-    //MCUCR &=~(1 << ISC00);
+    MCP2515_bit_modify(CANINTE, 0x3, 0x3);
+    EIMSK |=(1 << INT2); 
+    EICRA |= (1 << ISC21);
+    EICRA &=~(1 << ISC20);
 
     //Clear interrupts
     MCP2515_bit_modify(CANINTF, 0, 3);
+}
+
+ISR(INT2_vect)
+{
+    uint8_t int_flag = MCP2515_read(CANINTF);
+    if(int_flag & 0x1 && on_received[0] != NULL) {
+        on_received[0]();
+    }
+    if(int_flag & 0x2 && on_received[1] != NULL) {
+        on_received[1]();
+    }
+}
+
+
+void can_set_on_received(uint8_t id, can_callback_func cb) {
+    on_received[id] = cb;
 }
 
 int ready_to_transmit(uint8_t buffer_id) {
