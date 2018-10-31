@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mcp2515.h"
+#include "mcp2515_registers.h"
 
 
 void can_init() {

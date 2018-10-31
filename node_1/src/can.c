@@ -4,6 +4,7 @@
 
 #include "can.h"
 #include "mcp2515.h"
+#include "mcp2515_registers.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
