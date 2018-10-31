@@ -10,6 +10,7 @@
 #include "spi.h"
 #include "mcp2515.h"
 #include "can.h"
+#include "pwm.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
@@ -20,6 +21,7 @@ int main(){
        USART_init(BAUD);
        spi_init(); 
        MCP2515_init(); 
+       pwm_init();
        printf("Begin\n\r");
        while(1) { 
            can_message_t msg;
@@ -38,6 +40,9 @@ int main(){
                }
                state = 1;
            }
+           static uint8_t duty = 0; 
+           pwm_set_duty(0);
+           _delay_ms(10);
        }
-       return 0;
+           return 0;
 }
