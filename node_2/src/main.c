@@ -21,6 +21,7 @@ int main(){
        pwm_init();
        can_init();
        servo_init();
+       game_timer_init();
        sei();
        printf("Begin\n\r");
        while(1) { 
