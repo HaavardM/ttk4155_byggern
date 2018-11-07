@@ -4,9 +4,12 @@
 int length = 5;
 int highscores[length] = {0,0,0,0,0};
 
+int read_can_msg_id(can_message_t msg) {
+	return msg.id;
+}
 
 int button_is_pressed(){
-	if (read_joystick_select() > 0){
+	if (read_can_msg_id = 3){
 		return 1;
 	}
 	return 0;
