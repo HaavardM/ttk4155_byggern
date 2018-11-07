@@ -32,19 +32,23 @@ int read_joystick_select() {
 void joystick_update() {
     static int last_x = 0;
     static int last_y = 0;
+	static int last_z = 0;
     
     int x = read_joystick_x();
     int y = read_joystick_y();
+	int z = read_joystick_select();
     
-    if(x != last_x || y != last_y) {
+    if(x != last_x || y != last_y || z != last_z) {
         can_message_t msg;
         msg.id = 1;
         msg.length = 2;
         msg.data[0] = x + 127;
         msg.data[1] = y + 127;
+		msg.data[2] = z;
         can_msg_send(&msg);
-        printf("X: %d, Y: %d\n\r", msg.data[0], msg.data[1]);
+        printf("X: %d, Y: %d, Z: %d\n\r", msg.data[0], msg.data[1], msg.data[2]);
     }
     last_x = x;
     last_y = y;
+	last_z = z;
 }
