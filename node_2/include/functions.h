@@ -1,8 +1,5 @@
 
-
-start_timer();
-stop_timer();
-button_is_pressed();
-ball_break_led();
-update_highscore();
-quit();
+int button_is_pressed();
+int ball_break_led();
+void update_highscore();
+void quit();
