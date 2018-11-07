@@ -1,5 +1,6 @@
 #include "ui_internal.h"
-#include "enum_types.h"
+#include "can_msg_defines.h"
+#include "can.h"
 #include <stdio.h>
 
 
@@ -9,21 +10,12 @@ extern menu_item_t settings_item;
 extern menu_item_t about_item;
 extern menu_item_t back_item;
 
- can_message_t msg;
-        msg.id = 1;
-        msg.length = 2;
-        msg.data[0] = x + 127;
-        msg.data[1] = y + 127;
-		msg.data[2] = z;
-        can_msg_send(&msg);
-
 menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
 
 menu_item_t* on_play_select(menu_item_t* caller) {
     printf("Play\n\r");
 	can_message_t msg;
 	msg.id = start_game;
-	msg.data[0] = 1;
 	can_msg_send(&msg); 
     return caller;
 }

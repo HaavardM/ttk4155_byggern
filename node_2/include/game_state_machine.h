@@ -7,4 +7,7 @@ typedef enum {STATE_START_GAME, STATE_WAIT, STATE_RUNNING, STATE_GAME_OVER, FSM_
 ///FSM state function pointer type
 typedef fsm_state_e (* const fsm_state_func)(void);
 
+void game_init();
+void game_loop_once();
+
 #endif

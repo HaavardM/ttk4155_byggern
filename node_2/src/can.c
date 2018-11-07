@@ -9,9 +9,9 @@
 #include <stdlib.h>
 #include "mcp2515.h"
 #include "mcp2515_registers.h"
+#include "can_msg_handler.h"
 
 
-can_callback_func on_received[2] = {NULL, NULL};
 void can_init() {
     //Initialize MCP
     MCP2515_init();
@@ -27,18 +27,14 @@ void can_init() {
 ISR(INT2_vect)
 {
     uint8_t int_flag = MCP2515_read(CANINTF);
-    if(int_flag & 0x1 && on_received[0] != NULL) {
-        on_received[0]();
+    if(int_flag & 0x1) {
+        can_msg_handle(0);
     }
-    if(int_flag & 0x2 && on_received[1] != NULL) {
-        on_received[1]();
+    if(int_flag & 0x2) {
+        can_msg_handle(1);
     }
 }
 
-
-void can_set_on_received(uint8_t id, can_callback_func cb) {
-    on_received[id] = cb;
-}
 
 int ready_to_transmit(uint8_t buffer_id) {
     uint8_t tx_ctrl_status = MCP2515_read(TXB0CTRL + buffer_id * 0x10);

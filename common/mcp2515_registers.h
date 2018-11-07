@@ -26,6 +26,8 @@
 #define RXB0DLC 0x65
 #define RXB0D0 0x66
 
+#define RXB1CTRL 0x70
+
 #define CANCTRL 0xF
 #define CANINTE 0x2B
 #define CANINTF 0x2C
@@ -40,6 +42,8 @@
 #define RXF0SIDL 0x1
 #define RXM0SIDH 0x20
 #define RXM0SIDL 0x21
+#define FILTERDIFF 0x4
+
 
 #define SID0 5
 #define SID1 6
@@ -53,7 +57,8 @@
 #define SID9 6
 #define SID10 7
 
-#define FILTHIT0 0
+#define FILHIT0 0
+#define FILHIT1 1
 #define RXM0 5
 #define RXM1 6
 

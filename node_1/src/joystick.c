@@ -3,6 +3,7 @@
 #include "can.h"
 #include "adc.h"
 #include <avr/io.h>
+#include "can_msg_defines.h"
 
 int read_joystick_x(){
 	int pos_x = adc_read(1);
@@ -38,16 +39,22 @@ void joystick_update() {
     int y = read_joystick_y();
 	int z = read_joystick_select();
     
-    if(x != last_x || y != last_y || z != last_z) {
+    if(x != last_x || y != last_y) {
         can_message_t msg;
-        msg.id = 1;
-        msg.length = 3;
+        msg.id = joystick_pos;
+        msg.length = 2;
         msg.data[0] = x + 127;
         msg.data[1] = y + 127;
-		msg.data[2] = z;
         can_msg_send(&msg);
-        printf("X: %d, Y: %d, Z: %d\n\r", msg.data[0], msg.data[1], msg.data[2]);
+        printf("X: %d, Y: %d\n\r", msg.data[0], msg.data[1]);
     }
+	if(z != last_z) {
+		can_message_t msg;
+		msg.id = joystick_btn;
+		msg.length = 1;
+		msg.data[0] = z;
+		can_msg_send(&msg);
+	}
     last_x = x;
     last_y = y;
 	last_z = z;

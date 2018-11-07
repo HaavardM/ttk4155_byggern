@@ -13,14 +13,22 @@ void MCP2515_init() {
     DDRB |= (1 << PB7) | (1 << PB0);
     PORTB |= (1 << PB7);
     MCP2515_reset();
-    //Set filter0 criterias - only accept ID 0
+    //Set filter0 criterias - only accept ID 1, 2, 3
     MCP2515_bit_modify(RXF0SIDH, 0, 0xFF);
-    MCP2515_bit_modify(RXF0SIDL, (1 << SID0), (7 << SID0));
+    MCP2515_bit_modify(RXF0SIDL, (3 << SID0), (7 << SID0));
     MCP2515_bit_modify(RXM0SIDH, 0xFF, 0xFF);
-    MCP2515_bit_modify(RXM0SIDL, (7 << SID0), (7 << SID0));
+    MCP2515_bit_modify(RXM0SIDL, (0 << SID0), (7 << SID0));
     
+    //Set filter1 criterias - only accept ID 1, 2, 3
+    MCP2515_bit_modify(RXF0SIDH + FILTERDIFF, 0x0, 0xFF);
+    MCP2515_bit_modify(RXF0SIDL + FILTERDIFF, (4 << SID0), (7 << SID0));
+    MCP2515_bit_modify(RXM0SIDH + FILTERDIFF, 0xFF, 0xFF);
+    MCP2515_bit_modify(RXM0SIDL + FILTERDIFF, (7 << SID0), (7 << SID0));
+
     //Use filter0 for RXB0
     MCP2515_bit_modify(RXB0CTRL, (1 << RXM0), 1 | (1 << RXM0));
+    MCP2515_bit_modify(RXB1CTRL, (1 << RXM0), 1 | (1 << RXM0));
+    MCP2515_bit_modify(RXB1CTRL, (1 << FILHIT1), (1 << FILHIT1));
     
     //Request normal mode
     MCP2515_bit_modify(CANCTRL, 0x0, (7 << 5));

@@ -1,16 +1,21 @@
 #include "functions.h"
-#include "joystick.h"
-#include <std.io>
-int length = 5;
-int highscores[length] = {0,0,0,0,0};
+#include <stdio.h>
+#include "can.h"
+#include "can_msg_defines.h"
 
-int read_can_msg_id(can_message_t msg) {
-	return msg.id;
+#define LENGTH 5
+int highscores[LENGTH] = {0,0,0,0,0};
+can_message_t last_joystick_msg;
+
+void game_on_can_msg(can_message_t* msg_p) {
+	if(msg_p->id == joystick_pos) {
+		last_joystick_msg = *msg_p;
+	}
 }
 
-int button_is_pressed(){
-	if (read_can_msg_id = 3){
-		return 1;
+int button_is_pressed() {
+	if (last_joystick_msg.id == 3){
+		return last_joystick_msg.data[2] == 1;
 	}
 	return 0;
 }
@@ -23,10 +28,10 @@ int ball_break_led(){
 
 
 void update_highscore(int score){
-
-	for (i = 0 ; i < length ; i++){
-		if score > highscores[i]{
-			for (j = i+1 ; j <= length-i ; j++){
+	
+	for (int i = 0 ; i < LENGTH; i++){
+		if(score > highscores[i]){
+			for (int j = i+1 ; j <= LENGTH-i ; j++){
 				highscores[j] = highscores[j-1];
 			}
 			highscores[i] = score;	
@@ -38,11 +43,3 @@ void update_highscore(int score){
 void quit(){
 	
 }
-
- can_message_t msg;
-        msg.id = 1;
-        msg.length = 2;
-        msg.data[0] = x + 127;
-        msg.data[1] = y + 127;
-		msg.data[2] = z;
-        can_msg_send(&msg);
