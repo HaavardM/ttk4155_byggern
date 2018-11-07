@@ -24,8 +24,8 @@ menu_item_t play_item = {
 
 
 menu_item_t* on_highscore_selected(menu_item_t* caller) {
-    printf("Sara vinner alltid...\n\r");
-    printf("Emma kommer alltid sist... \n\r");
+    printf("Sara er en taper...\n\r");
+    printf("Emma vinner!! \n\r");
     printf("H-Bird er for kul\n\r");
     return caller;
 }
