@@ -41,7 +41,7 @@ void joystick_update() {
     if(x != last_x || y != last_y || z != last_z) {
         can_message_t msg;
         msg.id = 1;
-        msg.length = 2;
+        msg.length = 3;
         msg.data[0] = x + 127;
         msg.data[1] = y + 127;
 		msg.data[2] = z;
