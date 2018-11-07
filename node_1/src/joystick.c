@@ -43,6 +43,7 @@ void joystick_update() {
         msg.data[0] = x + 127;
         msg.data[1] = y + 127;
         can_msg_send(&msg);
+        printf("X: %d, Y: %d\n\r", msg.data[0], msg.data[1]);
     }
     last_x = x;
     last_y = y;

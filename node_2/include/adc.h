@@ -1,5 +1,7 @@
 #ifndef ADC_H
 #define ADC_H
 
-int adc_read(unsigned char channel);
+void adc_init();
+int adc_read();
+
 #endif

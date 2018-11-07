@@ -9,7 +9,9 @@ void on_new_joystick() {
         if(msg.length != 2) {
             return;
         }
-        pwm_set_duty(msg.data[0]);
+        printf("X: %d\n\r", msg.data[0]);
+        uint8_t setpoint = 0xFF - msg.data[0];
+        pwm_set_duty(setpoint);
     }
 }
 
