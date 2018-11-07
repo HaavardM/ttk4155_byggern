@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 
-#include <avr/iom2560.h>
-
 #define PRESCALE 1024
 #define FREQUENCY (F_CPU / PRESCALE)
 #define PERIOD 1

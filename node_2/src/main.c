@@ -18,12 +18,14 @@ int main(){
        int state = 0;
        USART_init(BAUD);
        spi_init(); 
+       ir_init();
        pwm_init();
        can_init();
        servo_init();
        game_timer_init();
        sei();
        printf("Begin\n\r");
+       ir_start();
        while(1) { 
        }
        return 0;
