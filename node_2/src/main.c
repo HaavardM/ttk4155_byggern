@@ -11,11 +11,13 @@
 #include "mcp2515.h"
 #include "can.h"
 #include "pwm.h"
+#include "game_timer.h"
+#include "ir.h"
+#include "servo_driver.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
 int main(){
-       int state = 0;
        USART_init(BAUD);
        spi_init(); 
        ir_init();
