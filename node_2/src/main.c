@@ -32,9 +32,8 @@ int main(){
        printf("Begin\n\r");
        ir_start();
        while(1) { 
-           _delay_ms(1);
-           game_controller_update();
-           game_loop_once();
+           can_msg_update();
+           //game_loop_once();
           
        }
        return 0;

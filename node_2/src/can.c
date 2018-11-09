@@ -24,21 +24,22 @@ void can_init() {
     EICRA &=~(1 << ISC20);
     EICRA |= (1 << ISC31);
     EICRA &=~(1 << ISC30);
+    can_flush();
 
-    //Clear interrupts
+}
+
+void can_flush() {
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
 ISR(INT2_vect)
 {
     can_msg_handle(0);
-    printf("Buf 0\n\r");
 }
 
 ISR(INT3_vect) 
 {
     can_msg_handle(1);
-    printf("Buf 1\n\r");
 }
 
 

@@ -68,4 +68,6 @@
 #define B0BFE 2
 #define B1BFE 3
 
+#define BUKT 2
+
 #endif
