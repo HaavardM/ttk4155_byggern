@@ -62,7 +62,6 @@ int can_msg_send(can_message_t* msg_p) {
         if(buffer_id > 2) {
             buffer_id = 0;
         }
-        
     }
     uint8_t high_id = msg_p->id / 8;
     uint8_t low_id = (msg_p->id % 8) * 0b100000;   
