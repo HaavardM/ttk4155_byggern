@@ -3,10 +3,11 @@
 
 typedef enum 
 {
-	joystick_pos = 1,
-	joystick_btn = 2,
-	game_over = 4,
-	start_game = 5
+	MSG_JOYSTICK_POS = 1,
+	MSG_SLIDER_POS = 2,
+	MSG_BUTTON_CLICK = 3,
+	MSG_GAME_OVER = 4,
+	MSG_START_GAME = 5
 } ID;
 
 #endif

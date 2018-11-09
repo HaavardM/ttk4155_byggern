@@ -15,7 +15,7 @@ menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
 menu_item_t* on_play_select(menu_item_t* caller) {
     printf("Play\n\r");
 	can_message_t msg;
-	msg.id = start_game;
+	msg.id = MSG_START_GAME;
 	can_msg_send(&msg); 
     return caller;
 }

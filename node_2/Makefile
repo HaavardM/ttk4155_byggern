@@ -1,5 +1,5 @@
 # List all source files to be compiled; separate with space
-SOURCE_FILES := src/main.c src/uart.c src/spi.c src/mcp2515.c src/can.c src/pwm.c src/servo_driver.c src/game_timer.c src/ir.c src/functions.c src/game_state_machine.c src/can_msg_handler.c
+SOURCE_FILES := src/main.c src/uart.c src/spi.c src/mcp2515.c src/can.c src/pwm.c src/game_controller.c src/game_timer.c src/ir.c src/functions.c src/game_state_machine.c src/can_msg_handler.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes

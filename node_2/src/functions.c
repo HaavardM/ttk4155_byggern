@@ -8,13 +8,13 @@ int highscores[LENGTH] = {0,0,0,0,0};
 can_message_t last_joystick_msg;
 
 void game_on_can_msg(can_message_t* msg_p) {
-	if(msg_p->id == joystick_pos) {
+	if(msg_p->id == MSG_JOYSTICK_POS) {
 		last_joystick_msg = *msg_p;
 	}
 }
 
 int button_is_pressed() {
-	if (last_joystick_msg.id == 3){
+	if (last_joystick_msg.id == MSG_BUTTON_CLICK){
 		return last_joystick_msg.data[2] == 1;
 	}
 	return 0;

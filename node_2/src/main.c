@@ -13,7 +13,7 @@
 #include "pwm.h"
 #include "game_timer.h"
 #include "ir.h"
-#include "servo_driver.h"
+#include "game_controller.h"
 #include "game_state_machine.h"
 
 #define BAUD (F_CPU/16/9600-1)
@@ -30,6 +30,7 @@ int main(){
        printf("Begin\n\r");
        ir_start();
        while(1) { 
+           game_controller_update();
            //game_loop_once();
        }
        return 0;
