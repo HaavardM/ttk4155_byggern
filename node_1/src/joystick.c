@@ -34,11 +34,21 @@ void joystick_update() {
     static int last_x = 0;
     static int last_y = 0;
 	static int last_z = 0;
+	static int last_slider_r = 0;
+	static int last_button_r = 0;
+	static int last_slider_l = 0;
+	static int last_button_l = 0;
+
     
     int x = read_joystick_x();
     int y = read_joystick_y();
 	int z = read_joystick_select();
-    
+	int slider_r = read_right_slider();
+	int button_r = read_right_button_select();
+    int slider_l = read_left_slider();
+	int button_l = read_left_button_select();
+
+
     if(x != last_x || y != last_y) {
         can_message_t msg;
         msg.id = MSG_JOYSTICK_POS;
@@ -48,16 +58,30 @@ void joystick_update() {
         can_msg_send(&msg);
         printf("X: %d, Y: %d\n\r", msg.data[0], msg.data[1]);
     }
-	if(z != last_z) {
+	if(z != last_z || button_r != last_button_r || button_l != last_button_l) {
 		can_message_t msg;
 		msg.id = MSG_BUTTON_CLICK;
-		msg.length = 1;
+		msg.length = 3;
 		msg.data[0] = z;
+		msg.data[1] = button_r;
+		msg.data[2] = button_l;
 		can_msg_send(&msg);
 	}
+	if(slider_r != last_slider_r) {
+		can_message_t msg;
+        msg.id = MSG_SLIDER_POS;
+        msg.length = 1;
+        msg.data[0] = slider_r + 127;
+        can_msg_send(&msg);
+	}
+	
     last_x = x;
     last_y = y;
 	last_z = z;
+	last_slider_r = slider_r;
+	last_button_r = button_r;
+    last_slider_l = slider_l;
+	last_button_l = button_l;
 }
 
 int read_left_slider() {
