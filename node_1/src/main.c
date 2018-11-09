@@ -32,7 +32,7 @@ int main(){
        while(1) { 
            //joystick_update();
            ui_update();
-           read_left_slider();
+           read_right_slider();
        }
 
 	return 0;

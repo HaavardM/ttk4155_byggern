@@ -62,7 +62,6 @@ void joystick_update() {
 
 int read_left_slider() {
 	int left_slider = adc_read(2);
-	printf(left_slider );
 	return left_slider;
 }
 
