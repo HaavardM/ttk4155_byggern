@@ -2,6 +2,7 @@
 #include "can.h"
 #include "avr/io.h"
 #include "can_msg_defines.h"
+#include "solenoid.h"
 
 uint8_t new_can_msgs = 0;
 void game_controller_on_new_input() {
@@ -17,6 +18,11 @@ void handle_can_msgs() {
     switch(msg.id) {
         case MSG_JOYSTICK_POS:
             handle_new_joystick_pos(&msg);
+            printf("Joystick!\n\r");
+            break;
+        case MSG_BUTTON_CLICK:
+            solenoid_fire();
+            printf("Click!\n\r");
             break;
         default:
             break;

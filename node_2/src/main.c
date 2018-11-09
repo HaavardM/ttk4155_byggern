@@ -15,6 +15,7 @@
 #include "ir.h"
 #include "game_controller.h"
 #include "game_state_machine.h"
+#include "solenoid.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
@@ -25,6 +26,7 @@ int main(){
        pwm_init();
        can_init();
        game_timer_init();
+       solenoid_init();
        //game_init();
        sei();
        printf("Begin\n\r");
