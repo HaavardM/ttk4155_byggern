@@ -6,6 +6,7 @@
 uint8_t new_can_msgs = 0;
 void game_controller_on_new_input() {
     new_can_msgs = 1;
+    printf("New message\n\r");
 }
 
 void handle_can_msgs() {
@@ -13,12 +14,11 @@ void handle_can_msgs() {
     if(can_msg_read(0, &msg) == -1) {
         return;
     }
-    //No new can messages
-    new_can_msgs = 0;
-
     switch(msg.id) {
         case MSG_JOYSTICK_POS:
             handle_new_joystick_pos(&msg);
+            break;
+        default:
             break;
     }
 }

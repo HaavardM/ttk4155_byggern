@@ -30,6 +30,10 @@ void MCP2515_init() {
     MCP2515_bit_modify(RXB1CTRL, (1 << RXM0), 1 | (1 << RXM0));
     MCP2515_bit_modify(RXB1CTRL, (1 << FILHIT1), (1 << FILHIT1));
     
+
+    MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFM) | (1<<B1BFM));
+    MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFE) | (1<<B1BFE));
+
     //Request normal mode
     MCP2515_bit_modify(CANCTRL, 0x0, (7 << 5));
 }

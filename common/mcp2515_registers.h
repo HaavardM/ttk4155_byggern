@@ -62,4 +62,10 @@
 #define RXM0 5
 #define RXM1 6
 
+#define BFPCTRL 0xC
+#define B0BFM 0
+#define B1BFM 1
+#define B0BFE 2
+#define B1BFE 3
+
 #endif
