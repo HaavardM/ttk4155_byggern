@@ -13,19 +13,6 @@ void game_on_can_msg(can_message_t* msg_p) {
 	}
 }
 
-int button_is_pressed() {
-	if (last_joystick_msg.id == MSG_BUTTON_CLICK){
-		return last_joystick_msg.data[2] == 1;
-	}
-	return 0;
-}
-
-int ball_break_led(){
-	//if (ball has broken led)
-	//	return 1;
-	return 0;
-}
-
 
 void update_highscore(int score){
 	
@@ -39,7 +26,3 @@ void update_highscore(int score){
 	}
 }
 
-
-void quit(){
-	
-}
