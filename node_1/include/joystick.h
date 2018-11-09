@@ -8,5 +8,7 @@ void init_joystick();
 void joystick_update();
 int read_left_slider();
 int read_right_slider();
+int read_left_button_select();
+int read_right_button_select();
 
 #endif

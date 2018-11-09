@@ -70,3 +70,10 @@ int read_right_slider() {
 	return right_slider;
 }
 
+int read_left_button_select(){
+	return !(PINB & (1 << PB1));
+}
+
+int read_right_button_select(){
+	return !(PINB & (1 << PB2));
+}
