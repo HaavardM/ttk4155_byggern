@@ -59,3 +59,15 @@ void joystick_update() {
     last_y = y;
 	last_z = z;
 }
+
+int read_left_slider() {
+	int left_slider = adc_read(2);
+	printf(left_slider );
+	return left_slider;
+}
+
+int read_right_slider() {
+	int right_slider = adc_read(3);
+	return right_slider;
+}
+
