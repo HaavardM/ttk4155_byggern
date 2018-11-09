@@ -33,6 +33,7 @@ int main(){
            //joystick_update();
            ui_update();
            read_right_slider();
+           printf("Button: %d\n\r", read_right_button_select());
        }
 
 	return 0;
