@@ -30,7 +30,7 @@ int main(){
        printf("Begin\n\r");
        sei();
        while(1) { 
-           //joystick_update();
+           joystick_update();
            ui_update();
            read_right_slider();
            printf("Button: %d\n\r", read_right_button_select());
