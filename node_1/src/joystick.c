@@ -60,7 +60,7 @@ void joystick_update() {
     }
 	if(z != last_z || button_r != last_button_r || button_l != last_button_l) {
 		can_message_t msg;
-		msg.id = MSG_BUTTON_CLICK;
+		msg.id = MSG_BUTTON_CLIC0K;
 		msg.length = 3;
 		msg.data[0] = z;
 		msg.data[1] = button_r;
@@ -74,7 +74,7 @@ void joystick_update() {
         msg.data[0] = slider_r + 127;
         can_msg_send(&msg);
 	}
-	
+
     last_x = x;
     last_y = y;
 	last_z = z;
