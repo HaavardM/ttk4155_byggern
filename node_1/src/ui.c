@@ -9,6 +9,14 @@
 menu_item_t* backlist[BACKLIST_SIZE] = { NULL, NULL, NULL };
 
 menu_item_t* on_back_selected(menu_item_t* caller) {
+    for (int i = 1; i < BACKLIST_SIZE; ++i){
+        if (backlist[i] == caller){
+            backlist[i] = NULL;
+            return backlist[i-1];
+        }
+    }
+    return caller;
+/*
     if(backlist[0] != NULL) {
         menu_item_t* next = backlist[0];
         for(int i = 1; i < BACKLIST_SIZE; ++i) {
@@ -17,6 +25,7 @@ menu_item_t* on_back_selected(menu_item_t* caller) {
         return next;
     }
     return caller;
+*/
 }
 
 menu_item_t back_item = {
@@ -65,7 +74,15 @@ void ui_move_down() {
 }
 
 void ui_select() {
+	menu_item_t* temp = current_item_p; 
     current_item_p = current_item_p->on_select(current_item_p);
+	if (current_item_p != temp){
+		for (int i = 0; i < BACKLIST_SIZE; ++i){
+			if (backlist[i] == NULL){
+                backlist[i] = temp;
+            }
+		}
+	}
 }
 
 
