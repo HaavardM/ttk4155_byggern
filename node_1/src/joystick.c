@@ -69,7 +69,7 @@ void joystick_update() {
 		can_msg_send(&msg);
 	}
 
-	/*if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2)) {
+	if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2)) {
 		can_message_t msg;
         msg.id = MSG_SLIDER_POS;
         msg.length = 1;
@@ -77,7 +77,7 @@ void joystick_update() {
         can_msg_send(&msg);
         last_slider_r = slider_r;
 	}
-	*/
+	
 
     last_x = x;
     last_y = y;
