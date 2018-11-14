@@ -4,4 +4,5 @@
 
 void update_highscore();
 void game_on_can_msg(can_message_t* msg_p);
+int get_highscore(int i);
 #endif

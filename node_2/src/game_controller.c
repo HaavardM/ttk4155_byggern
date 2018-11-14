@@ -34,8 +34,9 @@ void handle_new_slider_pos(can_message_t* msg_p) {
 }
 void handle_new_button_click(can_message_t* msg_p) {
     
-    if (msg_p->data[1] == 1) {  // right button
+    if (msg_p->data[1]) {  // right button
         //Shoot ball
+        printf("Right button clicked\n\r");
         set_button_flag();
         state_running();
     }

@@ -32,13 +32,13 @@ int main(){
        solenoid_init();
        dac_init();
        motor_controller_init();
-       //game_init();
+       game_init();
        sei();
        printf("Begin\n\r");
        ir_start();
        while(1) { 
            can_msg_update();
-           //game_loop_once();
+           game_loop_once();
           
        }
        return 0;

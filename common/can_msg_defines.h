@@ -7,7 +7,8 @@ typedef enum
 	MSG_SLIDER_POS = 2,
 	MSG_BUTTON_CLICK = 3,
 	MSG_GAME_OVER = 4,
-	MSG_START_GAME = 5
+	MSG_START_GAME = 5,
+	MSG_SCORE = 6
 } ID;
 
 #endif

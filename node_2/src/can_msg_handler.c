@@ -4,10 +4,12 @@
 #include "game_controller.h"
 #include "game_state_machine.h"
 #include "functions.h"
+#include "highscore.h"
 #include <util/atomic.h>
 
 uint8_t data_available[2] = {0, 0};
 can_message_t data_buffer[2];
+
 
 void can_msg_handle(uint8_t buf) {
     if(can_msg_read(buf, data_buffer + buf) != -1) {
@@ -18,6 +20,7 @@ void can_msg_handle(uint8_t buf) {
 void can_msg_update() {
     for(int i = 0; i < 2; ++i) {
         if(data_available[i]) {
+            printf("Data");
             can_message_t* msg_p = &data_buffer[i];
             switch(msg_p->id) {
                 case MSG_JOYSTICK_POS:
@@ -28,6 +31,10 @@ void can_msg_update() {
                 case MSG_START_GAME:
                     set_button_flag();
                     break;
+                case MSG_SCORE:
+                    update_highscore(msg_p->data);
+                    break;
+
             }
             //Reset flag
             data_available[i] = 0;
