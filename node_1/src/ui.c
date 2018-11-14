@@ -99,7 +99,11 @@ void ui_init() {
 
 void ui_update() {
     int back_butt = read_left_button_select();
+
     printf("back: %d", back_butt);
+
+    //Return to menu
+
     if (back_butt){
         current_item_p = on_back_selected(current_item_p);
         ui_display();

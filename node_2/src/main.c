@@ -29,10 +29,12 @@ int main(){
        game_timer_init();
        solenoid_init();
        dac_init();
+       motor_controller_init();
        //game_init();
        sei();
        printf("Begin\n\r");
        ir_start();
+       dac_set_value(20);
        while(1) { 
            can_msg_update();
            //game_loop_once();
