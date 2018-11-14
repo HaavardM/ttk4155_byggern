@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "ui_internal.h"
 #include "ui_entrypoints.h"
+#include "highscore.h"
 
 #define BACKLIST_SIZE 3
 int disabled = 0;
@@ -100,7 +101,7 @@ void ui_init() {
 void ui_update() {
     int back_butt = read_left_button_select();
 
-    printf("back: %d", back_butt);
+    //printf("back: %d", back_butt);
 
     //Return to menu
 

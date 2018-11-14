@@ -35,6 +35,7 @@ int main(){
        motor_controller_init();
        pi_init();
        //game_init();
+       game_init();
        sei();
        printf("Begin\n\r");
        ir_start();
@@ -42,7 +43,7 @@ int main(){
        while(1) { 
            pi_update();
            can_msg_update();
-           //game_loop_once();
+           game_loop_once();
           
        }
        return 0;
