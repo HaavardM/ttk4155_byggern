@@ -98,17 +98,20 @@ void ui_init() {
 }
 
 void ui_update() {
+    int back_butt = read_left_button_select();
+    printf(back_butt);
+    if (back_butt == 1){
+        current_item_p = on_back_selected(current_item_p);
+        ui_display();
+    }
     if (disabled){
         return;
     }
     static int last_y = 0;
     static int last_selected = 0;
     int curr_y = read_joystick_y();
-    int back_butt = read_left_button_select();
-    if (back_butt == 1){
-        current_item_p = on_back_selected(current_item_p);
-        ui_display();
-    }
+    
+    
     if (last_y < 20 && last_y > -20) {
         if(curr_y >= 20) {
             ui_move_up();
