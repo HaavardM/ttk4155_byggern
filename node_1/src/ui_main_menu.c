@@ -16,7 +16,7 @@ menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
 menu_item_t* on_play_select(menu_item_t* caller) {
     ui_disable();
     oled_clear();
-    
+  /*  
     oled_write_string_inverse("                ", 0, 0);
     oled_write_string_inverse("### #   ## #   #", 1, 0);
     oled_write_string_inverse("#  ##  #  # # # ", 2, 0);
@@ -25,8 +25,8 @@ menu_item_t* on_play_select(menu_item_t* caller) {
     oled_write_string_inverse("#   #  #  #  #  ", 5, 0);
     oled_write_string_inverse("#   ####  #  #  ", 6, 0);
     oled_write_string_inverse("                ", 7, 0);
-    
-/*
+ */   
+
     //----LINE 0-----
     oled_write_string_inverse("                ", 0, 0);
 
@@ -100,8 +100,8 @@ menu_item_t* on_play_select(menu_item_t* caller) {
     oled_write_string_inverse("  ",6,14);
 
     //----LINE 7-----
-    oled_write_string_inverse("                ", 0, 0);
-*/
+    oled_write_string_inverse("                ", 7, 0);
+
     printf("Play\n\r");
 	can_message_t msg;
 	msg.id = MSG_START_GAME;
