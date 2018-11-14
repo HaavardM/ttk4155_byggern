@@ -10,6 +10,7 @@ int disabled = 0;
 menu_item_t* backlist[BACKLIST_SIZE] = { NULL, NULL, NULL };
 
 menu_item_t* on_back_selected(menu_item_t* caller) {
+    ui_enable();
     for (int i = 1; i < BACKLIST_SIZE; ++i){
         if (backlist[i] == caller){
             backlist[i] = NULL;
@@ -103,6 +104,11 @@ void ui_update() {
     static int last_y = 0;
     static int last_selected = 0;
     int curr_y = read_joystick_y();
+    int back_butt = read_left_button_select();
+    if (back_butt == 1){
+        current_item_p = on_back_selected(current_item_p);
+        ui_display();
+    }
     if (last_y < 20 && last_y > -20) {
         if(curr_y >= 20) {
             ui_move_up();

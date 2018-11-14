@@ -14,6 +14,7 @@ extern menu_item_t back_item;
 menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
 
 menu_item_t* on_play_select(menu_item_t* caller) {
+    ui_disable();
     printf("Play\n\r");
 	can_message_t msg;
 	msg.id = MSG_START_GAME;
@@ -30,6 +31,7 @@ menu_item_t play_item = {
 
 
 menu_item_t* on_highscore_selected(menu_item_t* caller) {
+    ui_disable();
 	oled_clear();
     oled_write_string("Sara på første plass", 0, 0);
     printf("Sara er en taper...\n\r");
@@ -59,6 +61,7 @@ menu_item_t settings_item = {
 };
 
 menu_item_t* on_about_selected(menu_item_t* caller) {
+    ui_disable();
     printf("Vakkert bilde laget av Sara: \n\r");
     return caller;
 }
