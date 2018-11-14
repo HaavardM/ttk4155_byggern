@@ -32,8 +32,9 @@ int main(){
        while(1) { 
            joystick_update();
            ui_update();
-           read_right_slider();
-           printf("Button: %d\n\r", read_right_button_select());
+           _delay_ms(1);
+           //read_right_slider();
+           //printf("Button: %d\n\r", read_right_button_select());
        }
 
 	return 0;

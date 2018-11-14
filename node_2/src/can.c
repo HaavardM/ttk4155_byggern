@@ -16,24 +16,33 @@ void can_init() {
     //Initialize MCP
     MCP2515_init();
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
+    DDRD &=~((1 << PD2) | (1 << PD3));
+    PORTD |= (1 << PIND2) | (1 << PIND3);
     EIMSK |=(1 << INT2); 
+    EIMSK |=(1 << INT3);
     EICRA |= (1 << ISC21);
     EICRA &=~(1 << ISC20);
+    EICRA |= (1 << ISC31);
+    EICRA &=~(1 << ISC30);
+    can_flush();
 
-    //Clear interrupts
+}
+
+void can_flush() {
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
 ISR(INT2_vect)
 {
-    uint8_t int_flag = MCP2515_read(CANINTF);
-    if(int_flag & 0x1) {
-        can_msg_handle(0);
-    }
-    if(int_flag & 0x2) {
-        can_msg_handle(1);
-    }
+    can_msg_handle(0);
 }
+
+ISR(INT3_vect) 
+{
+    can_msg_handle(1);
+}
+
+
 
 
 int ready_to_transmit(uint8_t buffer_id) {
@@ -93,4 +102,3 @@ int can_msg_read(uint8_t buffer_id, can_message_t* msg_p) {
     MCP2515_bit_modify(CANINTF, 0, (1 << buffer_id));
     return 0;
 }
-

@@ -58,16 +58,18 @@ void joystick_update() {
         can_msg_send(&msg);
         printf("X: %d, Y: %d\n\r", msg.data[0], msg.data[1]);
     }
-	if(z != last_z || button_r != last_button_r || button_l != last_button_l) {
+	if((z && !last_z) || (button_r && !last_button_r) || (button_l && !last_button_l)) {
 		can_message_t msg;
-		msg.id = MSG_BUTTON_CLIC0K;
+		msg.id = MSG_BUTTON_CLICK;
 		msg.length = 3;
 		msg.data[0] = z;
 		msg.data[1] = button_r;
 		msg.data[2] = button_l;
+		printf("Click\n\r");
 		can_msg_send(&msg);
 	}
-	if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2)) {
+
+	/*if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2)) {
 		can_message_t msg;
         msg.id = MSG_SLIDER_POS;
         msg.length = 1;
@@ -75,6 +77,7 @@ void joystick_update() {
         can_msg_send(&msg);
         last_slider_r = slider_r;
 	}
+	*/
 
     last_x = x;
     last_y = y;
@@ -102,3 +105,10 @@ int read_right_button_select(){
 	return (PINB & (1 << PB2));
 }
 
+<<<<<<< HEAD
+=======
+/*int get_slider_position(){
+	return last_slider_r; //kan vi gjøre denne global?
+}
+*/
+>>>>>>> 227df9588f2aee14c37852968cf501059ec2b88b

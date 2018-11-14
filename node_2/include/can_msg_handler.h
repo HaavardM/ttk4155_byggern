@@ -3,5 +3,6 @@
 #include <stdint.h>
 
 void can_msg_handle(uint8_t buf);
+void can_msg_update();
 
 #endif
