@@ -67,7 +67,7 @@ void joystick_update() {
 		msg.data[2] = button_l;
 		can_msg_send(&msg);
 	}
-	if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2) {
+	if((slider_r >= last_slider_r + 2) || (slider_r <= last_slider_r -2)) {
 		can_message_t msg;
         msg.id = MSG_SLIDER_POS;
         msg.length = 1;
@@ -102,6 +102,3 @@ int read_right_button_select(){
 	return (PINB & (1 << PB2));
 }
 
-int get_slider_position(){
-	return last_slider_r; //kan vi gjøre denne global?
-}
