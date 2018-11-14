@@ -17,6 +17,8 @@
 #include "game_state_machine.h"
 #include "solenoid.h"
 #include "dac.h"
+#include "motor_controller.h"
+#include "can_msg_handler.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
@@ -34,7 +36,6 @@ int main(){
        sei();
        printf("Begin\n\r");
        ir_start();
-       dac_set_value(20);
        while(1) { 
            can_msg_update();
            //game_loop_once();

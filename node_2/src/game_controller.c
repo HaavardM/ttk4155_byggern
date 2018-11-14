@@ -16,7 +16,7 @@ void game_controller_on_new_input(can_message_t* msg_p) {
             handle_new_button_click(msg_p);
             break;
         case MSG_SLIDER_POS:
-            //handle_new_slider_pos(&msg);
+            handle_new_slider_pos(msg_p);
             break;
         default:
             break;
@@ -28,15 +28,10 @@ void handle_new_joystick_pos(can_message_t* msg_p) {
     uint8_t setpoint = 0xFF - msg_p->data[0];
     pwm_set_duty(setpoint);
 }
-/*
+
 void handle_new_slider_pos(can_message_t* msg_p) {
-    if (msg_p->data[0] < get_slider_position()){
-        //move to left
-    else if (msg_p->data[0] > get_slider_position())
-        //move to right
-    }
+    motor_controller_set_speed(msg_p->data[0] - 126);
 }
-*/
 void handle_new_button_click(can_message_t* msg_p) {
     
     if (msg_p->data[1] == 1) {  // right button

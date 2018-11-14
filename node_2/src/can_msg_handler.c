@@ -19,10 +19,15 @@ void can_msg_update() {
     for(int i = 0; i < 2; ++i) {
         if(data_available[i]) {
             can_message_t* msg_p = &data_buffer[i];
-            if(msg_p->id <= 3) {
-                game_controller_on_new_input(msg_p);
-            } else {
-
+            switch(msg_p->id) {
+                case MSG_JOYSTICK_POS:
+                case MSG_BUTTON_CLICK:
+                case MSG_SLIDER_POS:
+                    game_controller_on_new_input(msg_p);
+                    break;
+                case MSG_START_GAME:
+                    set_button_flag();
+                    break;
             }
             //Reset flag
             data_available[i] = 0;

@@ -120,7 +120,9 @@ menu_item_t play_item = {
 menu_item_t* on_highscore_selected(menu_item_t* caller) {
     ui_disable();
 	oled_clear();
-    oled_write_string("NO. 1: Sara", 0, 0);
+    oled_write_string_inverse("Rank Name Score ", 0, 0);
+    oled_write_string("1    Sara 123", 1, 0);
+    oled_write_string("2    Emma  78", 2, 0);
     printf("Sara er en taper...\n\r");
     printf("Emma vinner!! \n\r");
     printf("H-Bird er for kul\n\r");
