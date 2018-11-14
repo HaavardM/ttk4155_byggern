@@ -105,10 +105,9 @@ int read_right_button_select(){
 	return (PINB & (1 << PB2));
 }
 
-<<<<<<< HEAD
-=======
+
 /*int get_slider_position(){
 	return last_slider_r; //kan vi gjøre denne global?
 }
 */
->>>>>>> 227df9588f2aee14c37852968cf501059ec2b88b
+

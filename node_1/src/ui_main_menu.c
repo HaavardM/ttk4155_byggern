@@ -1,6 +1,7 @@
 #include "ui_internal.h"
 #include "can_msg_defines.h"
 #include "can.h"
+#include "oled.h"
 #include <stdio.h>
 
 
@@ -29,6 +30,8 @@ menu_item_t play_item = {
 
 
 menu_item_t* on_highscore_selected(menu_item_t* caller) {
+	oled_clear();
+    oled_write_string("Sara på første plass", 0, 0);
     printf("Sara er en taper...\n\r");
     printf("Emma vinner!! \n\r");
     printf("H-Bird er for kul\n\r");
