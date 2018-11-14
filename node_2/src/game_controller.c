@@ -5,6 +5,7 @@
 #include "solenoid.h"
 #include "game_controller.h"
 #include "game_state_machine.h"
+#include "pi.h"
 
 void game_controller_on_new_input(can_message_t* msg_p) {
     switch(msg_p->id) {
@@ -30,7 +31,7 @@ void handle_new_joystick_pos(can_message_t* msg_p) {
 }
 
 void handle_new_slider_pos(can_message_t* msg_p) {
-    motor_controller_set_speed(msg_p->data[0] - 126);
+    pi_set_setpoint(msg_p->data[0]);
 }
 void handle_new_button_click(can_message_t* msg_p) {
     

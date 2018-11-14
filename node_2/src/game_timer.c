@@ -30,10 +30,12 @@ void disable_interrupt() {
 }
 
 void game_timer_init() {
+    cli();
     //Set prescale to 1024 and CTC mode
     TCCR3B = (1 << CS30) | (1 << CS32) | (1 << WGM32);
     //Set timer
     OCR3A = TIMER_STEPS;
+    sei();
 }
 
 void game_timer_set_on_elapsed(void_cb_t cb) {

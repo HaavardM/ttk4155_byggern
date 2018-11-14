@@ -19,6 +19,7 @@
 #include "dac.h"
 #include "motor_controller.h"
 #include "can_msg_handler.h"
+#include "pi.h"
 
 #define BAUD (F_CPU/16/9600-1)
 
@@ -32,11 +33,14 @@ int main(){
        solenoid_init();
        dac_init();
        motor_controller_init();
+       pi_init();
        //game_init();
        sei();
        printf("Begin\n\r");
        ir_start();
+       motor_controller_calibrate_encoder();
        while(1) { 
+           pi_update();
            can_msg_update();
            //game_loop_once();
           

@@ -31,12 +31,14 @@ void start_timer() {
 
 
 void solenoid_init() {
+    cli();
     //Set prescale to 1024 and CTC mode
     TCCR4B = (1 << WGM42);
     DDRB |= (1<<PB4);
     PORTB |= (1 << PINB4);
     //Set timer
     OCR4A = TIMER_STEPS;
+    sei();
 }
 
 void solenoid_fire() {

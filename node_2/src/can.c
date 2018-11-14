@@ -15,6 +15,7 @@
 void can_init() {
     //Initialize MCP
     MCP2515_init();
+    cli();
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
     DDRD &=~((1 << PD2) | (1 << PD3));
     PORTD |= (1 << PIND2) | (1 << PIND3);
@@ -25,6 +26,7 @@ void can_init() {
     EICRA |= (1 << ISC31);
     EICRA &=~(1 << ISC30);
     can_flush();
+    sei();
 
 }
 
