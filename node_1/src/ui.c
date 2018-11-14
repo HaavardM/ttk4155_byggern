@@ -5,6 +5,7 @@
 #include "ui_entrypoints.h"
 
 #define BACKLIST_SIZE 3
+int disabled = 0;
 //Keep track of previous locations
 menu_item_t* backlist[BACKLIST_SIZE] = { NULL, NULL, NULL };
 
@@ -96,6 +97,9 @@ void ui_init() {
 }
 
 void ui_update() {
+    if (disabled){
+        return;
+    }
     static int last_y = 0;
     static int last_selected = 0;
     int curr_y = read_joystick_y();
@@ -117,3 +121,10 @@ void ui_update() {
     }
 }
 
+void ui_disable(){
+    disabled = 1;
+}
+
+void ui_enable(){
+    disabled = 0;
+}
