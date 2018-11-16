@@ -34,7 +34,6 @@ int main(){
        dac_init();
        motor_controller_init();
        //pi_init();
-       //game_init();
        game_init();
        printf("Begin\n\r");
        ir_start();
