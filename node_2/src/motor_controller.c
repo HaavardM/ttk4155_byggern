@@ -6,8 +6,6 @@
 
 #define MAX_ENCODER 10000
 
-static int16_t max = 0;
-
 void motor_controller_init() {
     DDRH |= (1 << PH4) | (1 << PH1) | (1<<PINH5) | (1<<PINH3) | (1<<PINH6);
     DDRK &=~((1 << PINK0) | 
@@ -28,7 +26,6 @@ void reset_encoder() {
     PORTH &=~(1<<PINH6);
     _delay_us(200);
     PORTH |=(1<<PINH6);
-    max = 0;
 }
 
 
@@ -81,10 +78,6 @@ int16_t motor_controller_read_encoder() {
         return lst;
     }
     lst = value;
-    if(lst > max) {
-        max = lst;
-        printf("Max: %d\n\r", max);
-    }
     return lst;
 }
 

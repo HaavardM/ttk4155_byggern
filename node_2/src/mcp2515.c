@@ -15,11 +15,11 @@ void MCP2515_init() {
     MCP2515_reset();
 
     MCP2515_bit_modify(RXB0CTRL, (1 << RXM0), 1 | (1 << RXM0));
-    MCP2515_bit_modify(RXB0CTRL, 0xFF, (1 << BUKT));
+    //MCP2515_bit_modify(RXB0CTRL, 0xFF, (1 << BUKT));
     
 
-    MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFM) | (1<<B1BFM));
-    MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFE) | (1<<B1BFE));
+    //MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFM) | (1<<B1BFM));
+    //MCP2515_bit_modify(BFPCTRL, 0xFF, (1<<B0BFE) | (1<<B1BFE));
 
     //Request normal mode
     MCP2515_bit_modify(CANCTRL, 0x0, (7 << 5));

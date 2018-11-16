@@ -38,6 +38,7 @@ int main(){
        printf("Begin\n\r");
        ir_start();
        while(1) { 
+           //can_update();
            pi_update();
            can_msg_update();
            game_loop_once();

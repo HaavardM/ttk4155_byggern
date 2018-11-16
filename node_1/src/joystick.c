@@ -76,6 +76,7 @@ void joystick_update() {
         msg.data[0] = slider_r + 127;
         can_msg_send(&msg);
         last_slider_r = slider_r;
+		printf("Slider: %d\n\r", slider_r);
 	}
 	
 

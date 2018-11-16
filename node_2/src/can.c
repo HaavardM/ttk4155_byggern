@@ -20,11 +20,8 @@ void can_init() {
     DDRD &=~((1 << PD2) | (1 << PD3));
     PORTD |= (1 << PIND2) | (1 << PIND3);
     EIMSK |=(1 << INT2); 
-    EIMSK |=(1 << INT3);
     EICRA |= (1 << ISC21);
     EICRA &=~(1 << ISC20);
-    EICRA |= (1 << ISC31);
-    EICRA &=~(1 << ISC30);
     can_flush();
     sei();
 
@@ -39,17 +36,10 @@ ISR(INT2_vect)
     can_msg_handle(0);
 }
 
-ISR(INT3_vect) 
-{
-    can_msg_handle(1);
-}
-
 void can_update() {
     uint8_t int_flag = MCP2515_read(CANINTF);
     if(int_flag & 1) {
         can_msg_handle(0);
-    } else if(int_flag & 2) {
-        can_msg_handle(1);
     }
 }
 
