@@ -9,9 +9,36 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdio.h>
+#include "can_msg_defines.h"
+#include "highscore.h"
 
 volatile can_message_t messages[2];
+uint8_t data_available[2] = {0, 0};
 
+/*
+void can_msg_handle(uint8_t buf) {
+    if(can_msg_read(buf, data_buffer + buf) != -1) {
+        data_available[buf] = 1;
+    }
+}
+
+void can_msg_update() {
+    for(int i = 0; i < 2; ++i) {
+        if(data_available[i]) {
+            printf("Data");
+            can_message_t* msg_p = &data_buffer[i];
+            switch(msg_p->id) {
+                case MSG_SCORE:
+                    update_highscore(msg_p->data);
+                    break;
+
+            }
+            //Reset flag
+            data_available[i] = 0;
+        }
+    }
+}
+*/
 void handle_new_messages() {
     uint8_t int_flag = MCP2515_read(CANINTF);
     can_message_t msg;
@@ -22,6 +49,10 @@ void handle_new_messages() {
     if(int_flag & 0x2) {
         can_msg_read(1, &msg);
         messages[1] = msg;
+        if (msg.id == MSG_SCORE){
+            update_highscore(msg.data);
+        }
+    
     }
 }
 
@@ -94,4 +125,5 @@ int can_msg_read(uint8_t buffer_id, can_message_t* msg_p) {
     MCP2515_bit_modify(CANINTF, 0, (1 << buffer_id));
     return 0;
 }
+
 

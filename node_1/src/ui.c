@@ -4,6 +4,7 @@
 #include "ui_internal.h"
 #include "ui_entrypoints.h"
 #include "highscore.h"
+#include <string.h>
 
 #define BACKLIST_SIZE 3
 int disabled = 0;
@@ -12,10 +13,11 @@ menu_item_t* backlist[BACKLIST_SIZE] = { NULL, NULL, NULL };
 
 menu_item_t* on_back_selected(menu_item_t* caller) {
     ui_enable();
-    for (int i = 1; i < BACKLIST_SIZE; ++i){
-        if (backlist[i] == caller){
+    for (int i = BACKLIST_SIZE-1; i >= 0; i--){
+        if (backlist[i] != NULL){
+            menu_item_t* temp = backlist[i];
             backlist[i] = NULL;
-            return backlist[i-1];
+            return temp;
         }
     }
     return caller;
@@ -80,6 +82,7 @@ void ui_select() {
 	menu_item_t* temp = current_item_p; 
     current_item_p = current_item_p->on_select(current_item_p);
 	if (current_item_p != temp){
+        ui_display();
 		for (int i = 0; i < BACKLIST_SIZE; ++i){
 			if (backlist[i] == NULL){
                 backlist[i] = temp;
@@ -100,10 +103,6 @@ void ui_init() {
 
 void ui_update() {
     int back_butt = read_left_button_select();
-
-    //printf("back: %d", back_butt);
-
-    //Return to menu
 
     if (back_butt){
         current_item_p = on_back_selected(current_item_p);
@@ -141,4 +140,22 @@ void ui_disable(){
 
 void ui_enable(){
     disabled = 0;
+}
+
+void print_backlist(){
+    printf("\n");
+    for (int i = 0; i < BACKLIST_SIZE; i++){
+        printf("%s\n\r",backlist[i]->item_text);
+    }
+    printf("\n");
+}
+
+void update_backlist(menu_item_t* caller){
+    for (int i = 0; i < BACKLIST_SIZE; i++){
+        if (backlist[i] == NULL){
+            backlist[i] = caller;
+            return;
+        }
+        
+    }
 }

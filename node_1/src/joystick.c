@@ -88,19 +88,13 @@ void joystick_update() {
 }
 
 int read_left_slider() {
-	static int lst = 0;
-	int new = adc_read(2);
-	int ret = (5 * lst + new) / 6;
-	lst = ret;
-	return ret;
+	int left_slider = adc_read(2);
+	return left_slider;
 }
 
 int read_right_slider() {
-	static int lst = 0;
-	int new = adc_read(3);
-	int ret = (5 * lst + new) / 6;
-	lst = ret;
-	return ret;
+	int right_slider = adc_read(3);
+	return right_slider;
 }
 
 int read_left_button_select(){
@@ -111,9 +105,4 @@ int read_right_button_select(){
 	return (PINB & (1 << PB2));
 }
 
-
-/*int get_slider_position(){
-	return last_slider_r; //kan vi gjøre denne global?
-}
-*/
 
