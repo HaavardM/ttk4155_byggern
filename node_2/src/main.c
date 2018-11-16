@@ -32,14 +32,12 @@ int main(){
        game_timer_init();
        solenoid_init();
        dac_init();
-       motor_controller_init();
-       pi_init();
        //game_init();
        game_init();
-       sei();
        printf("Begin\n\r");
        ir_start();
-       motor_controller_calibrate_encoder();
+       motor_controller_init();
+       pi_init();
        while(1) { 
            pi_update();
            can_msg_update();
