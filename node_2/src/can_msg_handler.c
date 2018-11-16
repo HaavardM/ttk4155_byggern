@@ -28,6 +28,7 @@ void can_msg_update() {
                     game_controller_on_new_input(msg_p);
                     break;
                 case MSG_START_GAME:
+                    printf("BAMM\n\r");
                     set_button_flag();
                     break;
                 case MSG_SCORE:

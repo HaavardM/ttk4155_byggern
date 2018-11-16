@@ -46,7 +46,7 @@ fsm_state_e state_start_game() {
 fsm_state_e state_wait() {
 	printf("State wait\n\r");
 	if (button_flag) {
-		printf("HEI");
+		printf("Nå er vi inne der det skal endre seg til running\n\r");
 		ir_start(); 		
 		game_timer_start();
 
