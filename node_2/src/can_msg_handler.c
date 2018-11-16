@@ -4,7 +4,6 @@
 #include "game_controller.h"
 #include "game_state_machine.h"
 #include "functions.h"
-#include "highscore.h"
 #include <util/atomic.h>
 
 uint8_t data_available[2] = {0, 0};
@@ -32,7 +31,7 @@ void can_msg_update() {
                     set_button_flag();
                     break;
                 case MSG_SCORE:
-                    update_highscore(msg_p->data);
+                    //update_highscore(msg_p->data);
                     break;
 
             }
