@@ -102,12 +102,14 @@ void ui_init() {
 }
 
 void ui_update() {
+    static int lst_back_butt = 0;
     int back_butt = read_left_button_select();
 
-    if (back_butt){
+    if (back_butt && !lst_back_butt){
         current_item_p = on_back_selected(current_item_p);
         ui_display();
     }
+    lst_back_butt = back_butt;
     if (disabled){
         return;
     }

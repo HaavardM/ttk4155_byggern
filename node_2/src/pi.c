@@ -18,7 +18,8 @@
 int motor_speed = 0;
 
 
-#define ENCODER_MAX 100
+#define ENCODER_MAX 10000
+#define ENCODER_SAFEZONE 200
 #define SETPOINT_MAX 255
 
 #define K_P 10
@@ -33,7 +34,7 @@ int motor_speed = 0;
 #define MAX_ERROR MAX_INT / (K_P + 1)
 #define MAX_SUM_ERROR (MAX_I_TERM / (K_I + 1))
 
-#define SCALING_FACTOR 100
+#define SCALING_FACTOR 500
 
 int16_t setpoint = 0;
 int32_t sum_error = 0;
@@ -87,8 +88,8 @@ void pi_init() {
 }
 
 void pi_update() {
-    current_value = motor_controller_read_encoder() * 255 / 10000;
-    //printf("Error: %d, Speed: %d\n\r", error, ret);
+    current_value = motor_controller_read_encoder();
+    printf("Error: %d, Speed: %d\n\r", error, ret);
     //printf("Encoder %d\n\r", current_value);
 }
 
@@ -98,7 +99,7 @@ void pi_set_setpoint(uint8_t pos) {
     } else if(pos > 245) {
         pos = 245;
     }
-    setpoint = pos;
+    setpoint = (ENCODER_MAX - 2*ENCODER_SAFEZONE) * pos / SETPOINT_MAX + ENCODER_SAFEZONE;
 }
 
 

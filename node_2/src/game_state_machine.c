@@ -40,31 +40,30 @@ void game_init(){
 fsm_state_e state_start_game() {
 	printf("State start game\n\r");
 	score = 0;
+	printf("State wait\n\r");
 	return STATE_WAIT;
 }
 
 fsm_state_e state_wait() {
-	printf("State wait\n\r");
 	if (button_flag) {
 		printf("Nå er vi inne der det skal endre seg til running\n\r");
 		ir_start(); 		
 		game_timer_start();
-
+		printf("State running\n\r");
 		return STATE_RUNNING;
 	}return STATE_WAIT;
 }
 
 fsm_state_e state_running() {
-	printf("State running\n\r");
 	button_flag = 0;
 	if (ir_flag) {			
 		game_timer_stop();
+		printf("state game over\n\r");
 		return STATE_GAME_OVER;		
 	}return STATE_RUNNING; 
 }
 
 fsm_state_e state_game_over() {
-	printf("state game over\n\r");
 	send_score(score);
 	ir_stop();
 	ir_flag = 0;	

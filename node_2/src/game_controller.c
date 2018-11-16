@@ -11,14 +11,13 @@ void game_controller_on_new_input(can_message_t* msg_p) {
     switch(msg_p->id) {
         case MSG_JOYSTICK_POS:
             handle_new_joystick_pos(msg_p);
-            handle_new_slider_pos(msg_p);
             break;
         case MSG_BUTTON_CLICK:
             solenoid_fire();
             handle_new_button_click(msg_p);
             break;
         case MSG_SLIDER_POS:
-            //handle_new_slider_pos(msg_p);
+            handle_new_slider_pos(msg_p);
             break;
         default:
             break;

@@ -20,6 +20,7 @@ void can_msg_handle(uint8_t buf) {
 }
 
 void can_msg_update() {
+    //can_update();
     for(int i = 0; i < 2; ++i) {
         if(data_available[i]) {
             can_message_t* msg_p = &data_buffer[i];

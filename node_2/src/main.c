@@ -33,17 +33,14 @@ int main(){
        solenoid_init();
        dac_init();
        motor_controller_init();
-       //pi_init();
+       pi_init();
        game_init();
        printf("Begin\n\r");
        ir_start();
-       motor_controller_init();
-       pi_init();
        while(1) { 
-           //pi_update();
+           pi_update();
            can_msg_update();
            game_loop_once();
-          
        }
        return 0;
 }

@@ -44,6 +44,14 @@ ISR(INT3_vect)
     can_msg_handle(1);
 }
 
+void can_update() {
+    uint8_t int_flag = MCP2515_read(CANINTF);
+    if(int_flag & 1) {
+        can_msg_handle(0);
+    } else if(int_flag & 2) {
+        can_msg_handle(1);
+    }
+}
 
 
 

@@ -39,6 +39,7 @@ void can_msg_update() {
     }
 }
 */
+
 void handle_new_messages() {
     uint8_t int_flag = MCP2515_read(CANINTF);
     can_message_t msg;
