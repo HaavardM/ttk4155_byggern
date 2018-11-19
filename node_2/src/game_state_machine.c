@@ -4,8 +4,6 @@
 #include "functions.h"
 #include "can_msg_defines.h"
 #include <stdio.h>
-#include <util/delay.h>
-
 fsm_state_e state_game_over();
 fsm_state_e state_running();
 fsm_state_e state_wait();
@@ -21,9 +19,6 @@ int ir_flag = 0;
 uint16_t score = 0;
 fsm_state_e state = STATE_START_GAME;
 
-void timer_elapsed() {
-	score += 1;
-}
 void game_fsm_set_button_flag(){
  	button_flag = 1;
 }
@@ -31,13 +26,12 @@ void game_fsm_set_button_flag(){
 void game_init(){
 	state = STATE_START_GAME;
 	button_flag = 0;
-	game_timer_set_on_elapsed(timer_elapsed);
 }
 
 fsm_state_e state_start_game() {
 	printf("State start game\n\r");
-	score = 0;
-	button_flag = 0;
+	//Reset game timer
+	game_timer_stop();
 	printf("State wait\n\r");
 	return STATE_WAIT;
 }
@@ -62,7 +56,9 @@ fsm_state_e state_running() {
 }
 
 fsm_state_e state_game_over() {
-	ir_flag = 0;	
+	uint16_t score = game_timer_get();
+	printf("Score: %d\n\r", score);
+	//send_score(score);
 	can_message_t msg;
 	msg.id = MSG_GAME_OVER;
 	msg.length = 2;

@@ -19,7 +19,6 @@ menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
 
 
 menu_item_t* on_play_select(menu_item_t* caller) {
-    update_backlist(caller);
     ui_disable();
     oled_clear();
     draw_play(); 
@@ -40,7 +39,6 @@ menu_item_t play_item = {
 
 
 menu_item_t* on_highscore_selected(menu_item_t* caller) {
-    update_backlist(caller);
     ui_disable();
 	oled_clear();
     //draw_header();
@@ -71,7 +69,6 @@ menu_item_t highscore_item = {
 };
 
 menu_item_t* on_settings_selected(menu_item_t* caller) {
-    update_backlist(caller);
     printf("Settings menu\n\r");
     return UI_SETTINGS_MENU_ENTRYPOINT;
 }
@@ -84,7 +81,6 @@ menu_item_t settings_item = {
 };
 
 menu_item_t* on_about_selected(menu_item_t* caller) {
-    update_backlist(caller);
     ui_disable();
     oled_clear();
     oled_clear();
