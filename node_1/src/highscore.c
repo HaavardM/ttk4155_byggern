@@ -14,11 +14,13 @@ void update_highscore(uint8_t high, uint8_t low){
 	//char *player = get_player();
 	for (int i = 0 ; i < LENGTH; i++){
 		if(score > highscores[i]){
-			for (int j = i+1; j <= LENGTH-i; j++){
+			for (int j = LENGTH-1; j > i; j--){
 				highscores[j] = highscores[j-1];
+				names[j] = names[j-1];
 			}
 			highscores[i] = score;	
 			names[i] = player->item_text;
+			break;
 		}
 	}
 }

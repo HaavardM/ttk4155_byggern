@@ -3,6 +3,7 @@
 #include "can.h"
 #include "joystick.h"
 #include "highscore.h"
+#include "ui.h"
 
 
 
@@ -11,8 +12,8 @@ void can_msg_handle(uint8_t buf) {
     if(can_msg_read(buf, &msg) != -1) {
         switch(msg.id) {
             case MSG_GAME_OVER:
-                joystick_remote_disable();
                 update_highscore(msg.data[0], msg.data[1]);
+                ui_go_back();
                 break;
             }
         

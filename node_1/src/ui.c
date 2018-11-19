@@ -98,13 +98,18 @@ void ui_init() {
     ui_display();
 }
 
+void ui_go_back() {
+    current_item_p = on_back_selected(current_item_p);
+    ui_display();
+    joystick_remote_disable();
+}
+
 void ui_update() {
     static int lst_back_butt = 0;
     int back_butt = read_left_button_select();
 
     if (back_butt && !lst_back_butt){
-        current_item_p = on_back_selected(current_item_p);
-        ui_display();
+        ui_go_back();
     }
     lst_back_butt = back_butt;
     if (disabled){

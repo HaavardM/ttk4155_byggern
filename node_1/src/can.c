@@ -53,12 +53,14 @@ int ready_to_transmit(uint8_t buffer_id) {
 }
 
 void can_init() {
+    cli();
     MCP2515_init();
     //Enable interrupts
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
     GICR  |=(1 << INT0); 
     MCUCR |= (1 << ISC01);
     MCUCR &=~(1 << ISC00);
+    sei();
     //Clear current interrupts
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
