@@ -3,8 +3,6 @@
 #include "ir.h"
 #include "functions.h"
 #include <stdio.h>
-#include <util/delay.h>
-
 fsm_state_e state_game_over();
 fsm_state_e state_running();
 fsm_state_e state_wait();
@@ -17,12 +15,8 @@ fsm_state_func state_vector[FSM_NUM_STATES] =
 
 int button_flag = 0;
 int ir_flag = 0;
-int score = 0;
 fsm_state_e state = STATE_START_GAME;
 
-void timer_elapsed() {
-	score += 1;
-}
 void set_button_flag(){
  	button_flag = 1;
 }
@@ -33,13 +27,13 @@ void set_ir_flag(){
 void game_init(){
 	state = STATE_START_GAME;
 	button_flag = 0;
-	game_timer_set_on_elapsed(timer_elapsed);
 	ir_set_on_blocked(set_ir_flag);
 }
 
 fsm_state_e state_start_game() {
 	printf("State start game\n\r");
-	score = 0;
+	//Reset game timer
+	game_timer_stop();
 	printf("State wait\n\r");
 	return STATE_WAIT;
 }
@@ -64,7 +58,8 @@ fsm_state_e state_running() {
 }
 
 fsm_state_e state_game_over() {
-	send_score(score);
+	uint16_t score = game_timer_get();
+	//send_score(score);
 	ir_stop();
 	ir_flag = 0;	
 	return STATE_START_GAME;							

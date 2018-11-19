@@ -13,39 +13,34 @@
 #define PERIOD 1
 #define TIMER_STEPS (FREQUENCY * PERIOD - 1)
 
-void_cb_t timer_callback = NULL;
+#define SECONDS_PER_OVERFLOW (419 / 100)
+#define TIMER_ENABLE_BITS ((1 << CS30) | (1 << CS32))
 
-ISR(TIMER3_COMPA_vect) {
-    if(timer_callback != NULL) {
-        timer_callback();
-    }
-}
+uint16_t ovf = 0;
 
-void enable_interrupt() {
-    TIMSK3 |= (1 << OCIE3A);
-}
-
-void disable_interrupt() {
-    TIMSK3 &= ~(1 << OCIE3A);
+ISR(TIMER3_OVF_vect)
+{
+    ++ovf; 
 }
 
 void game_timer_init() {
-    cli();
-    //Set prescale to 1024 and CTC mode
-    TCCR3B = (1 << CS30) | (1 << CS32) | (1 << WGM32);
-    //Set timer
-    OCR3A = TIMER_STEPS;
     sei();
 }
 
-void game_timer_set_on_elapsed(void_cb_t cb) {
-    timer_callback = cb;
-}
-
 void game_timer_start() {
-    enable_interrupt();
+    ovf = 0;
+    TCNT3 = 0;
+    TIMSK3 |= (1 << TOIE3);
+    TCCR3B |= TIMER_ENABLE_BITS;
 }
 
 void game_timer_stop() {
-    disable_interrupt();
+    //Disable interrupt and timer
+    TIMSK3 &=~(1 << TOIE3);
+    TCCR3B &=~TIMER_ENABLE_BITS;
 }
+
+uint16_t game_timer_get() {
+    return (TCNT3 / FREQUENCY) + ((uint32_t)ovf * SECONDS_PER_OVERFLOW);
+}
+
