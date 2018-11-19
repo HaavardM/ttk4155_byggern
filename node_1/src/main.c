@@ -25,8 +25,8 @@ int main(){
        oled_init(); 
        ui_init();
        spi_init();
-       MCP2515_init();
        init_joystick();
+       can_init();
        printf("Begin\n\r");
        sei();
        while(1) { 

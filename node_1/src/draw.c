@@ -1,5 +1,6 @@
 #include "draw.h"
 #include <string.h>
+#include "oled.h"
 
 void draw_play(){
 	//----LINE 0-----

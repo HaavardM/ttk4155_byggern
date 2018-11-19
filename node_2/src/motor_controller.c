@@ -1,10 +1,36 @@
+#ifndef F_CPU
+#define F_CPU 16000000UL
+#endif
 #include "dac.h"
 #include <avr/io.h>
 #include <util/delay.h>
+#include "motor_controller.h"
 
 #define MAX_SPEED 180
 
 #define MAX_ENCODER 10000
+
+void reset_encoder() {
+    PORTH &=~(1<<PINH6);
+    _delay_us(200);
+    PORTH |=(1<<PINH6);
+}
+
+void set_direction_right() {
+    PORTH |=(1<<PINH1);
+}
+
+void set_direction_left() {
+    PORTH &=~(1<<PINH1);
+}
+
+void motor_controller_enable() {
+    PORTH |= (1<<PINH4);
+}
+
+void motor_controller_disable() {
+    PORTH &=~(1<<PINH4);
+}
 
 void motor_controller_init() {
     DDRH |= (1 << PH4) | (1 << PH1) | (1<<PINH5) | (1<<PINH3) | (1<<PINH6);
@@ -22,28 +48,9 @@ void motor_controller_init() {
     reset_encoder();
 }
 
-void reset_encoder() {
-    PORTH &=~(1<<PINH6);
-    _delay_us(200);
-    PORTH |=(1<<PINH6);
-}
 
 
-void motor_controller_enable() {
-    PORTH |= (1<<PINH4);
-}
 
-void motor_controller_disable() {
-    PORTH &=~(1<<PINH4);
-}
-
-void set_direction_right() {
-    PORTH |=(1<<PINH1);
-}
-
-void set_direction_left() {
-    PORTH &=~(1<<PINH1);
-}
 
 void motor_controller_set_speed(int16_t speed) {
     if(speed < -MAX_SPEED) {

@@ -5,6 +5,8 @@
 #include <avr/io.h>
 #include "can_msg_defines.h"
 
+uint8_t remote_enabled = 0;
+
 int read_joystick_x(){
 	int pos_x = adc_read(1);
 	if (pos_x < 10 && pos_x > -10){
@@ -29,6 +31,13 @@ int read_joystick_select() {
 	return !(PINB & (1 << PB0));
 }
 
+void joystick_remote_enable() {
+	remote_enabled = 1;
+}
+
+void joystick_remote_disable() {
+	remote_enabled = 0;
+}
 
 void joystick_update() {
     static int last_x = 0;
@@ -38,6 +47,11 @@ void joystick_update() {
 	static int last_button_r = 0;
 	static int last_slider_l = 0;
 	static int last_button_l = 0;
+
+	//dont send commands if not neccessary
+	if(!remote_enabled) {
+		return;
+	}
 
     
     int x = read_joystick_x();

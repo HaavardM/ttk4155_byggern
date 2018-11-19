@@ -30,7 +30,6 @@ int motor_speed = 0;
 #define MAX_I_TERM (MAX_LONG / 2)
 
 
-#define MAX_I_TERM MAX_LONG / 2
 #define MAX_ERROR MAX_INT / (K_P + 1)
 #define MAX_SUM_ERROR (MAX_I_TERM / (K_I + 1))
 

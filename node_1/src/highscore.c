@@ -1,20 +1,26 @@
 #include "ui_settings_menu.h"
+#include <stdint.h>
+#include <stdio.h>
+
 #define LENGTH 5
 int highscores[LENGTH] = {0,0,0,0,0};
-const char *names[LENGTH];
+char *names[LENGTH];
 
-void update_highscore(int score){
+void update_highscore(uint8_t high, uint8_t low){
+	uint16_t score = ((uint16_t)high << 8) | low;
 	printf("BAAAM\n");
-	printf(score,"\n\r");
+	printf("Score %d\n\r", score);
 	menu_item_t* player = get_player();
 	//char *player = get_player();
 	for (int i = 0 ; i < LENGTH; i++){
 		if(score > highscores[i]){
-			for (int j = i+1; j <= LENGTH-i; j++){
+			for (int j = LENGTH-1; j > i; j--){
 				highscores[j] = highscores[j-1];
+				names[j] = names[j-1];
 			}
 			highscores[i] = score;	
 			names[i] = player->item_text;
+			break;
 		}
 	}
 }

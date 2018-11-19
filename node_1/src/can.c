@@ -10,6 +10,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 #include "can_msg_defines.h"
+#include "can_msg_handler.h"
 #include "highscore.h"
 
 volatile can_message_t messages[2];
@@ -40,28 +41,10 @@ void can_msg_update() {
 }
 */
 
-void handle_new_messages() {
-    uint8_t int_flag = MCP2515_read(CANINTF);
-    can_message_t msg;
-    if(int_flag & 0x1) {
-        can_msg_read(0, &msg);
-        messages[0] = msg;
-    }
-    if(int_flag & 0x2) {
-        can_msg_read(1, &msg);
-        messages[1] = msg;
-        if (msg.id == MSG_SCORE){
-            update_highscore(msg.data);
-        }
-    
-    }
-}
-
 
 ISR(INT0_vect) 
 {
-    handle_new_messages();
-    printf("IDs %d, %d\n\r", messages[0].id, messages[1].id);
+    can_msg_handle(0);
 }
 
 int ready_to_transmit(uint8_t buffer_id) {
@@ -70,12 +53,14 @@ int ready_to_transmit(uint8_t buffer_id) {
 }
 
 void can_init() {
+    cli();
     MCP2515_init();
     //Enable interrupts
     MCP2515_bit_modify(CANINTE, 0x3, 0x3);
     GICR  |=(1 << INT0); 
     MCUCR |= (1 << ISC01);
     MCUCR &=~(1 << ISC00);
+    sei();
     //Clear current interrupts
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
