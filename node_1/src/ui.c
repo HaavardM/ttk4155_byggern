@@ -83,11 +83,7 @@ void ui_select() {
     current_item_p = current_item_p->on_select(current_item_p);
 	if (current_item_p != temp){
         ui_display();
-		for (int i = 0; i < BACKLIST_SIZE; ++i){
-			if (backlist[i] == NULL){
-                backlist[i] = temp;
-            }
-		}
+        update_backlist(temp);
 	}
 }
 
