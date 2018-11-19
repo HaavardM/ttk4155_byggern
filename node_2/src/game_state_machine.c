@@ -1,3 +1,6 @@
+#ifndef F_CPU
+#define F_CPU 16000000UL
+#endif
 #include "game_state_machine.h"
 #include "game_timer.h"
 #include "ir.h"
