@@ -40,7 +40,6 @@ menu_item_t player_3 = {
 
 
 menu_item_t* get_player(){
-	char* a = player->item_text;
 	return player;
 }
 
