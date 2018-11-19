@@ -2,10 +2,12 @@
 #include "ui_entrypoints.h"
 #include "can_msg_defines.h"
 #include "can.h"
+#include "draw.h"
 #include "oled.h"
 #include "functions.h"
 #include "highscore.h"
 #include <stdio.h>
+#include "ui.h"
 
 
 
