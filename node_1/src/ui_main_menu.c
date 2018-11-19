@@ -6,6 +6,7 @@
 #include "functions.h"
 #include "highscore.h"
 #include <stdio.h>
+#include "joystick.h"
 
 
 
@@ -28,6 +29,7 @@ menu_item_t* on_play_select(menu_item_t* caller) {
 	can_message_t msg;
 	msg.id = MSG_START_GAME;
 	can_msg_send(&msg); 
+    joystick_remote_enable();
     return caller;
 }
 

@@ -10,5 +10,7 @@ int read_left_slider();
 int read_right_slider();
 int read_left_button_select();
 int read_right_button_select();
+void joystick_remote_enable();
+void joystick_remote_disable();
 
 #endif
