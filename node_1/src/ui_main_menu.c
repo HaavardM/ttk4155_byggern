@@ -7,6 +7,8 @@
 #include "highscore.h"
 #include <stdio.h>
 #include "joystick.h"
+#include <stdlib.h>
+#include "ui.h"
 
 
 

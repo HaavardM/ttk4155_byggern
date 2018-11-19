@@ -5,6 +5,7 @@
 #include "ui_entrypoints.h"
 #include "highscore.h"
 #include <string.h>
+#include "ui.h"
 
 #define BACKLIST_SIZE 3
 int disabled = 0;
