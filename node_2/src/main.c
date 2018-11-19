@@ -36,7 +36,6 @@ int main(){
        pi_init();
        game_init();
        printf("Begin\n\r");
-       ir_start();
        while(1) { 
            //can_update();
            pi_update();
