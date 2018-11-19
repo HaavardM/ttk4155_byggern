@@ -2,6 +2,7 @@
 #include "game_timer.h"
 #include "ir.h"
 #include "functions.h"
+#include "can_msg_defines.h"
 #include <stdio.h>
 fsm_state_e state_game_over();
 fsm_state_e state_running();
@@ -15,19 +16,16 @@ fsm_state_func state_vector[FSM_NUM_STATES] =
 
 int button_flag = 0;
 int ir_flag = 0;
+uint16_t score = 0;
 fsm_state_e state = STATE_START_GAME;
 
-void set_button_flag(){
+void game_fsm_set_button_flag(){
  	button_flag = 1;
-}
-void set_ir_flag(){
- 	ir_flag = 1;
 }
 
 void game_init(){
 	state = STATE_START_GAME;
 	button_flag = 0;
-	ir_set_on_blocked(set_ir_flag);
 }
 
 fsm_state_e state_start_game() {
@@ -41,16 +39,16 @@ fsm_state_e state_start_game() {
 fsm_state_e state_wait() {
 	if (button_flag) {
 		printf("Nå er vi inne der det skal endre seg til running\n\r");
-		ir_start(); 		
 		game_timer_start();
 		printf("State running\n\r");
 		return STATE_RUNNING;
-	}return STATE_WAIT;
+	}
+	return STATE_WAIT;
 }
 
 fsm_state_e state_running() {
 	button_flag = 0;
-	if (ir_flag) {			
+	if (ir_is_blocked()) {			
 		game_timer_stop();
 		printf("state game over\n\r");
 		return STATE_GAME_OVER;		
@@ -59,9 +57,16 @@ fsm_state_e state_running() {
 
 fsm_state_e state_game_over() {
 	uint16_t score = game_timer_get();
+	printf("Score: %d\n\r", score);
 	//send_score(score);
-	ir_stop();
-	ir_flag = 0;	
+	can_message_t msg;
+	msg.id = MSG_GAME_OVER;
+	msg.length = 2;
+	//HIGH byte
+	msg.data[0] = score / 256; 
+	//LOW byte
+	msg.data[1] = score % 256;
+	can_msg_send(&msg);
 	return STATE_START_GAME;							
 }
 
