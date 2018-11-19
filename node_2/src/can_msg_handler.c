@@ -18,13 +18,8 @@ void can_msg_handle(uint8_t buf) {
                 game_controller_on_new_input(&msg);
                 break;
             case MSG_START_GAME:
-                printf("BAMM\n\r");
-                set_button_flag();
+                game_init();
                 break;
-            case MSG_SCORE:
-                //update_highscore(msg_p->data);
-                break;
-
             }
         
     }

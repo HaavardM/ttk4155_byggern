@@ -24,7 +24,7 @@ fsm_state_e state = STATE_START_GAME;
 void timer_elapsed() {
 	score += 1;
 }
-void set_button_flag(){
+void game_fsm_set_button_flag(){
  	button_flag = 1;
 }
 
@@ -48,7 +48,8 @@ fsm_state_e state_wait() {
 		game_timer_start();
 		printf("State running\n\r");
 		return STATE_RUNNING;
-	}return STATE_WAIT;
+	}
+	return STATE_WAIT;
 }
 
 fsm_state_e state_running() {

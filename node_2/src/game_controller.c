@@ -38,8 +38,7 @@ void handle_new_button_click(can_message_t* msg_p) {
     if (msg_p->data[1]) {  // right button
         //Shoot ball
         printf("Right button clicked\n\r");
-        set_button_flag();
-        state_running();
+        game_fsm_set_button_flag();
     }
 
 }
