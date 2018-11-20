@@ -22,7 +22,7 @@ int motor_speed = 0;
 #define ENCODER_SAFEZONE 200
 #define SETPOINT_MAX 255
 
-#define K_P 200
+#define K_P 1000
 #define K_I 0
 
 #define MAX_INT INT16_MAX
@@ -30,22 +30,22 @@ int motor_speed = 0;
 #define MAX_I_TERM (MAX_LONG / 2)
 
 
-#define MAX_ERROR MAX_INT / (K_P + 1)
+#define MAX_ERROR MAX_LONG / (K_P + 1)
 #define MAX_SUM_ERROR (MAX_I_TERM / (K_I + 1))
 
-#define SCALING_FACTOR 500
+#define SCALING_FACTOR 8000
 
-int16_t setpoint = 0;
+int32_t setpoint = 0;
 int32_t sum_error = 0;
-int16_t last_value = 0;
+int32_t last_value = 0;
 
-int16_t error, ret;
+int32_t error, ret;
 
 //TODO Update frequently
-int16_t current_value = 0;
+int32_t current_value = 0;
 
 ISR(TIMER5_COMPA_vect) {
-    int16_t p_term;
+    int32_t p_term;
     int32_t i_term, temp;
     
     error = setpoint - current_value;

@@ -35,13 +35,13 @@ void motor_controller_disable() {
 void motor_controller_init() {
     DDRH |= (1 << PH4) | (1 << PH1) | (1<<PINH5) | (1<<PINH3) | (1<<PINH6);
     DDRK &=~((1 << PINK0) | 
-              (1 << PINK1) | 
-              (1 << PINK2) | 
-              (1 << PINK3) | 
-              (1 << PINK4) | 
-              (1 << PINK5) | 
-              (1 << PINK6) | 
-              ( 1<< PINK7));
+             (1 << PINK1) | 
+             (1 << PINK2) | 
+             (1 << PINK3) | 
+             (1 << PINK4) | 
+             (1 << PINK5) | 
+             (1 << PINK6) | 
+             ( 1<< PINK7));
     motor_controller_enable();
     motor_controller_calibrate_encoder();
     set_direction_right();
