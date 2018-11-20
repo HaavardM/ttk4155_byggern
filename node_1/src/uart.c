@@ -53,6 +53,8 @@ void USART_flush(void) {
     while (UCSR0A & (1 << RXC0)) dummy = UDR0;
 }
 
+/*---Exposed functions---------------------------*/
+
 void USART_init(unsigned int baud_rate) {
     //Set baud rate
     UBRR0H = (unsigned char) (baud_rate>>8);

@@ -7,6 +7,7 @@
 
 #define THRESHOLD 200
 
+/*---Exposed functions---------------------------*/
 void ir_init() {
     DDRA &=~(1 << PA0);
     //Prescale 128, enable ADC and interrupt

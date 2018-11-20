@@ -3,11 +3,10 @@
 #include "can.h"
 #include "game_controller.h"
 #include "game_state_machine.h"
-#include "functions.h"
 #include <util/atomic.h>
 
 
-
+/*---Exposed functions---------------------------*/
 void can_msg_handle(uint8_t buf) {
     can_message_t msg;
     if(can_msg_read(buf, &msg) != -1) {

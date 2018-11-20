@@ -23,6 +23,8 @@ ISR(TIMER3_OVF_vect)
     ++ovf; 
 }
 
+/*---Exposed functions---------------------------*/
+
 void game_timer_init() {
     sei();
 }
