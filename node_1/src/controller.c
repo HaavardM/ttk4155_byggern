@@ -1,4 +1,4 @@
-#include "joystick.h"
+#include "controller.h"
 #include "mcp2515.h"
 #include "can.h"
 #include "adc.h"
@@ -9,19 +9,19 @@ uint8_t remote_enabled = 0;
 
 
 /*---Exposed functions---------------------------*/
-void init_joystick() {
+void controller_init() {
 	DDRB &= ~(1 << PB0);	
 	PORTB |= (1 << PB0);	
 }
 
-int read_joystick_x(){
+int controller_read_joystick_x(){
 	int pos_x = adc_read(1);
 	if (pos_x < 10 && pos_x > -10){
 		pos_x = 0;
 	}
 	return pos_x;
 }
-int read_joystick_y() {
+int controller_read_joystick_y() {
 	int pos_y = adc_read(0);
 	if (pos_y < 10 && pos_y > -10){
 		pos_y = 0;
@@ -29,11 +29,11 @@ int read_joystick_y() {
 	return pos_y;
 }
 
-int read_joystick_select() {	
+int controller_read_joystick_select() {	
 	return !(PINB & (1 << PB0));
 }
 
-int read_left_slider() {
+int controller_read_left_slider() {
 	static int lst = 0;
 	int new = adc_read(2);
 	int ret = (5 * lst + new) / 6;
@@ -41,7 +41,7 @@ int read_left_slider() {
 	return ret;
 }
 
-int read_right_slider() {
+int controller_read_right_slider() {
 	static int lst = 0;
 	int new = adc_read(3);
 	int ret = (5 * lst + new) / 6;
@@ -49,24 +49,24 @@ int read_right_slider() {
 	return ret;
 }
 
-int read_left_button_select(){
+int controller_read_left_button_select(){
 	return (PINB & (1 << PB1));
 }
 
-int read_right_button_select(){
+int controller_read_right_button_select(){
 	return (PINB & (1 << PB2));
 }
 
 
-void joystick_remote_enable() {
+void controller_remote_enable() {
 	remote_enabled = 1;
 }
 
-void joystick_remote_disable() {
+void controller_remote_disable() {
 	remote_enabled = 0;
 }
 
-void joystick_update() {
+void controller_update() {
     static int last_x = 0;
     static int last_y = 0;
 	static int last_z = 0;
@@ -81,13 +81,13 @@ void joystick_update() {
 	}
 
     
-    int x = read_joystick_x();
-    int y = read_joystick_y();
-	int z = read_joystick_select();
-	int slider_r = read_right_slider();
-	int button_r = read_right_button_select();
-    int slider_l = read_left_slider();
-	int button_l = read_left_button_select();
+    int x = controller_read_joystick_x();
+    int y = controller_read_joystick_y();
+	int z = controller_read_joystick_select();
+	int slider_r = controller_read_right_slider();
+	int button_r = controller_read_right_button_select();
+    int slider_l = controller_read_left_slider();
+	int button_l = controller_read_left_button_select();
 
 	//If the position of the joystick has changed since last update
     if(x != last_x || y != last_y) {
