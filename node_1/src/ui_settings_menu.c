@@ -11,6 +11,7 @@ menu_item_t* UI_SETTINGS_MENU_ENTRYPOINT = &player_1;
 
 menu_item_t* player = &player_1;
 
+//Choose which player you want to be
 menu_item_t* on_player_select(menu_item_t* caller){
 	ui_display();
 	player = caller;
@@ -38,7 +39,7 @@ menu_item_t player_3 = {
     &player_1
 };
 
-
+/*---Exposed functions---------------------------*/
 menu_item_t* get_player(){
 	return player;
 }

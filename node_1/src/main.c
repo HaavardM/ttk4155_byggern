@@ -27,14 +27,11 @@ int main(){
        spi_init();
        init_joystick();
        can_init();
-       printf("Begin\n\r");
        sei();
        while(1) { 
            joystick_update();
            ui_update();
            _delay_ms(10);
-           //read_right_slider();
-           //printf("Button: %d\n\r", read_right_button_select());
        }
 
 	return 0;

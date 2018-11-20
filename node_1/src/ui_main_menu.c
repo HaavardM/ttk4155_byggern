@@ -27,7 +27,6 @@ menu_item_t* on_play_select(menu_item_t* caller) {
     oled_clear();
     draw_play(); 
 
-    printf("Play\n\r");
 	can_message_t msg;
 	msg.id = MSG_START_GAME;
 	can_msg_send(&msg); 
@@ -50,7 +49,7 @@ menu_item_t* on_highscore_selected(menu_item_t* caller) {
     oled_write_string("HIGHSCORE", 0, 0);
     oled_write_string_inverse("   Name   Score ",1,0);
     for (int i = 0; i < 5; i++){
-        int score = get_highscore(i);//get_highscore(i);
+        int score = get_highscore(i);
         char* name = get_name(i);
         char buffer[10];
         itoa(i+1, buffer, 10);
@@ -73,8 +72,8 @@ menu_item_t highscore_item = {
     &settings_item
 };
 
+//When selecting settings, the user is directed to a new menu
 menu_item_t* on_settings_selected(menu_item_t* caller) {
-    printf("Settings menu\n\r");
     return UI_SETTINGS_MENU_ENTRYPOINT;
 }
 

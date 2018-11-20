@@ -22,16 +22,6 @@ menu_item_t* on_back_selected(menu_item_t* caller) {
         }
     }
     return caller;
-/*
-    if(backlist[0] != NULL) {
-        menu_item_t* next = backlist[0];
-        for(int i = 1; i < BACKLIST_SIZE; ++i) {
-            backlist[i-1] = backlist[i];
-        }
-        return next;
-    }
-    return caller;
-*/
 }
 
 menu_item_t back_item = {
@@ -108,10 +98,13 @@ void ui_update() {
     static int lst_back_butt = 0;
     int back_butt = read_left_button_select();
 
+    //If back button has been pushed
     if (back_butt && !lst_back_butt){
         ui_go_back();
     }
     lst_back_butt = back_butt;
+    
+    //USB multifunction card disabled.
     if (disabled){
         return;
     }
@@ -119,15 +112,21 @@ void ui_update() {
     static int last_selected = 0;
     int curr_y = read_joystick_y();
     
-    
+    //Everything within the area of +- 20 is equivalent to zero
+    //If last joystick y-position was zero
     if (last_y < 20 && last_y > -20) {
+        //If current joystick y-positin is more than zero
         if(curr_y >= 20) {
             ui_move_up();
-        } else if(curr_y <= -20) {
+        }
+        //Else if current joystick y-position is less than zero 
+        else if(curr_y <= -20) {
             ui_move_down();
         }
     }
     last_y = curr_y;
+
+    //If joystick button is pushed now, but was not pushed before
     if (read_joystick_select()) {
         if(!last_selected) {
             ui_select();
@@ -146,6 +145,7 @@ void ui_enable(){
     disabled = 0;
 }
 
+//For testing
 void print_backlist(){
     printf("\n");
     for (int i = 0; i < BACKLIST_SIZE; i++){

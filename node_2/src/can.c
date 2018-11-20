@@ -12,6 +12,19 @@
 #include "can_msg_handler.h"
 
 
+
+ISR(INT2_vect)
+{
+    can_msg_handle(0);
+}
+
+int ready_to_transmit(uint8_t buffer_id) {
+    uint8_t tx_ctrl_status = MCP2515_read(TXB0CTRL + buffer_id * 0x10);
+    return !(tx_ctrl_status & (1 << TXREQ));
+}
+
+
+/*---Exposed functions---------------------------*/
 void can_init() {
     //Initialize MCP
     MCP2515_init();
@@ -31,23 +44,11 @@ void can_flush() {
     MCP2515_bit_modify(CANINTF, 0, 3);
 }
 
-ISR(INT2_vect)
-{
-    can_msg_handle(0);
-}
-
 void can_update() {
     uint8_t int_flag = MCP2515_read(CANINTF);
     if(int_flag & 1) {
         can_msg_handle(0);
     }
-}
-
-
-
-int ready_to_transmit(uint8_t buffer_id) {
-    uint8_t tx_ctrl_status = MCP2515_read(TXB0CTRL + buffer_id * 0x10);
-    return !(tx_ctrl_status & (1 << TXREQ));
 }
 
 int can_msg_send(can_message_t* msg_p) {
@@ -75,7 +76,6 @@ int can_msg_send(can_message_t* msg_p) {
     
     return status;
 }
-
 
 int can_msg_read(uint8_t buffer_id, can_message_t* msg_p) {
     

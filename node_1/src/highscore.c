@@ -6,12 +6,10 @@
 int highscores[LENGTH] = {0,0,0,0,0};
 char *names[LENGTH];
 
+/*---Exposed functions---------------------------*/
 void update_highscore(uint8_t high, uint8_t low){
 	uint16_t score = ((uint16_t)high << 8) | low;
-	printf("BAAAM\n");
-	printf("Score %d\n\r", score);
 	menu_item_t* player = get_player();
-	//char *player = get_player();
 	for (int i = 0 ; i < LENGTH; i++){
 		if(score > highscores[i]){
 			for (int j = LENGTH-1; j > i; j--){
