@@ -20,6 +20,7 @@ extern menu_item_t about_item;
 extern menu_item_t back_item;
 
 menu_item_t* UI_MAIN_MENU_ENTRYPOINT = &play_item;
+menu_item_t* UI_HIGHSCORE_MENU_ENTRYPOINT = &highscore_item;
 
 
 menu_item_t* on_play_select(menu_item_t* caller) {
