@@ -14,6 +14,7 @@
 #include "spi.h"
 #include "mcp2515.h"
 #include "joystick.h"
+#include "can.h"
 
 #define BAUD (F_CPU/16/9600-1)
 

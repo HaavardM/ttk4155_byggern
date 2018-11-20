@@ -8,6 +8,9 @@
 #include "ui.h"
 
 #define BACKLIST_SIZE 3
+
+void clear_backlist();
+
 int disabled = 0;
 //Keep track of previous locations
 menu_item_t* backlist[BACKLIST_SIZE] = { NULL, NULL, NULL };
