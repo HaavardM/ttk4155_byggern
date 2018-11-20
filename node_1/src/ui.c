@@ -79,6 +79,10 @@ void ui_move_down() {
     ui_display();
 }
 
+
+
+/*---Exposed functions---------------------------*/
+
 void ui_select() {
 	menu_item_t* temp = current_item_p; 
     current_item_p = current_item_p->on_select(current_item_p);
@@ -87,10 +91,6 @@ void ui_select() {
         update_backlist(temp);
 	}
 }
-
-
-/*---Exposed functions---------------------------*/
-
 
 void ui_init() {
     current_item_p = UI_MAIN_MENU_ENTRYPOINT;
@@ -146,6 +146,18 @@ void ui_enable(){
     disabled = 0;
 }
 
+void ui_goto_silent(menu_item_t* item_p) {
+    current_item_p = item_p;
+    //Backlist no longer valid after jump
+    clear_backlist();
+    
+}
+
+void ui_goto(menu_item_t* item_p) {
+    ui_goto_silent(item_p);
+    ui_display();
+}
+
 void print_backlist(){
     printf("\n");
     for (int i = 0; i < BACKLIST_SIZE; i++){
@@ -161,5 +173,11 @@ void update_backlist(menu_item_t* caller){
             return;
         }
         
+    }
+}
+
+void clear_backlist() {
+    for(uint8_t i = 0; i < BACKLIST_SIZE; ++i) {
+        backlist[i] = NULL;
     }
 }

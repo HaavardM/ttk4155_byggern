@@ -4,6 +4,7 @@
 #include "joystick.h"
 #include "highscore.h"
 #include "ui.h"
+#include "ui_entrypoints.h"
 
 
 
@@ -13,7 +14,8 @@ void can_msg_handle(uint8_t buf) {
         switch(msg.id) {
             case MSG_GAME_OVER:
                 update_highscore(msg.data[0], msg.data[1]);
-                ui_go_back();
+                ui_goto_silent(UI_HIGHSCORE_MENU_ENTRYPOINT);
+                ui_select();
                 break;
             }
         

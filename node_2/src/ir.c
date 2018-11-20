@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 
-#define THRESHOLD 300
+#define THRESHOLD 200
 
 void ir_init() {
     DDRA &=~(1 << PA0);
