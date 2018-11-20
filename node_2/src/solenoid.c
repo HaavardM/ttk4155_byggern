@@ -18,12 +18,14 @@ void stop_timer() {
 }
 
 ISR(TIMER4_COMPA_vect) {
+    //Clear pin after timeout
     TIMSK4 &=~(1<<OCIE4A);    
     PORTB |=(1 << PINB4);
     stop_timer();
 }
 
 void start_timer() {
+    //Reset timer and start
     TCCR4B |= (1 << CS42) | (1 << CS40);
     TCCR4B &=~(1<<CS41);
     TCNT4 = 0;
@@ -42,6 +44,7 @@ void solenoid_init() {
 }
 
 void solenoid_fire() {
+    //Create a pulse
     PORTB &= ~(1 << PINB4);
     TIMSK4 |= (1 << OCIE4A);
     start_timer();

@@ -37,7 +37,6 @@ int USART_recvchar() {
     unsigned int end_index = rx_buffer_end_index % RX_BUFFER_SIZE;
     unsigned int start_index = rx_buffer_start_index % RX_BUFFER_SIZE;
     
-    
     if (end_index == start_index) {
         return -1;
     } else {
