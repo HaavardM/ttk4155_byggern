@@ -1,5 +1,5 @@
 #include "oled.h"
-#include "joystick.h"
+#include "controller.h"
 #include "stdio.h"
 #include "ui_internal.h"
 #include "ui_entrypoints.h"
@@ -87,19 +87,19 @@ void ui_select() {
 
 void ui_init() {
     current_item_p = UI_MAIN_MENU_ENTRYPOINT;
-    init_joystick();
+    controller_init();
     ui_display();
 }
 
 void ui_go_back() {
     current_item_p = on_back_selected(current_item_p);
     ui_display();
-    joystick_remote_disable();
+    controller_remote_disable();
 }
 
 void ui_update() {
     static int lst_back_butt = 0;
-    int back_butt = read_left_button_select();
+    int back_butt = controller_read_left_button_select();
 
     //If back button has been pushed
     if (back_butt && !lst_back_butt){
@@ -113,7 +113,7 @@ void ui_update() {
     }
     static int last_y = 0;
     static int last_selected = 0;
-    int curr_y = read_joystick_y();
+    int curr_y = controller_read_joystick_y();
     
     //Everything within the area of +- 20 is equivalent to zero
     //If last joystick y-position was zero
@@ -130,7 +130,7 @@ void ui_update() {
     last_y = curr_y;
 
     //If joystick button is pushed now, but was not pushed before
-    if (read_joystick_select()) {
+    if (controller_read_joystick_select()) {
         if(!last_selected) {
             ui_select();
             last_selected = 1;

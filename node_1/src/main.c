@@ -13,7 +13,7 @@
 #include "ui.h"
 #include "spi.h"
 #include "mcp2515.h"
-#include "joystick.h"
+#include "controller.h"
 #include "can.h"
 
 #define BAUD (F_CPU/16/9600-1)
@@ -26,11 +26,11 @@ int main(){
        oled_init(); 
        ui_init();
        spi_init();
-       init_joystick();
+       controller_init();
        can_init();
        sei();
        while(1) { 
-           joystick_update();
+           controller_update();
            ui_update();
            _delay_ms(10);
        }
