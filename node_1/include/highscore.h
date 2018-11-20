@@ -7,5 +7,6 @@
 void update_highscore(uint8_t high, uint8_t low);
 int get_highscore(int i);
 char* get_name(int i);
+extern char* players[];
 
 #endif

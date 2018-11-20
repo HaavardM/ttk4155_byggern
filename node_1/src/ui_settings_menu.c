@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "ui_settings_menu.h"
+#include "highscore.h"
 //#include "ui_internal.h"
 #include "ui.h"
 
