@@ -4,7 +4,6 @@
 #include "can.h"
 #include "draw.h"
 #include "oled.h"
-#include "functions.h"
 #include "highscore.h"
 #include <stdio.h>
 #include "controller.h"
