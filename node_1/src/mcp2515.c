@@ -12,17 +12,7 @@
 
 
 
-void MCP2515_init() {
-    //Slave select for MCP2515
-    DDRB |= (1 << PINB4);
-    PORTB |= (1 << PB4);
-    
-    //Reset device and enter config mode
-    MCP2515_reset(); 
-    
-    //Set normal mode
-    MCP2515_bit_modify(0xF, 0, (0x7 << 5));
-}
+
 
 void MCP2515_set_SS() {
     PORTB &=~(1 << PB4);
@@ -42,6 +32,17 @@ void MCP2515_read_multiple(uint8_t address, uint8_t* data, int length) {
     MCP2515_clear_SS();
 }
 
+void MCP2515_init() {
+    //Slave select for MCP2515
+    DDRB |= (1 << PINB4);
+    PORTB |= (1 << PB4);
+    
+    //Reset device and enter config mode
+    MCP2515_reset(); 
+    
+    //Set normal mode
+    MCP2515_bit_modify(0xF, 0, (0x7 << 5));
+}
 
 uint8_t MCP2515_read(uint8_t address) {
     uint8_t data;
@@ -49,7 +50,6 @@ uint8_t MCP2515_read(uint8_t address) {
     return data;
 
 }
-
 
 void MCP2515_write(uint8_t address, uint8_t* data_p, int length) {
     MCP2515_set_SS();

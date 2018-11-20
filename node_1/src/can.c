@@ -16,32 +16,8 @@
 volatile can_message_t messages[2];
 uint8_t data_available[2] = {0, 0};
 
-/*
-void can_msg_handle(uint8_t buf) {
-    if(can_msg_read(buf, data_buffer + buf) != -1) {
-        data_available[buf] = 1;
-    }
-}
-
-void can_msg_update() {
-    for(int i = 0; i < 2; ++i) {
-        if(data_available[i]) {
-            printf("Data");
-            can_message_t* msg_p = &data_buffer[i];
-            switch(msg_p->id) {
-                case MSG_SCORE:
-                    update_highscore(msg_p->data);
-                    break;
-
-            }
-            //Reset flag
-            data_available[i] = 0;
-        }
-    }
-}
-*/
-
-
+//Interrupt
+//CAN-message received
 ISR(INT0_vect) 
 {
     can_msg_handle(0);
@@ -52,6 +28,8 @@ int ready_to_transmit(uint8_t buffer_id) {
     return !(tx_ctrl_status & (1 << TXREQ));
 }
 
+
+/*---Exposed functions---------------------------*/
 void can_init() {
     cli();
     MCP2515_init();

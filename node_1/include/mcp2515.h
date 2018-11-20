@@ -4,7 +4,6 @@
 
 void MCP2515_init();
 uint8_t MCP2515_read(uint8_t address);
-void MCP2515_read_multiple(uint8_t address, uint8_t* data, int length);
 void MCP2515_write(uint8_t address, uint8_t* data, int length);
 void MCP2515_rts(uint8_t tx_buffer);
 void MCP2515_reset();

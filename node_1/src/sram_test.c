@@ -1,5 +1,8 @@
 #include <stdlib.h>
 
+//Code used for testing the external memory
+//Not used in the game
+
 void SRAM_test(void) {
     volatile char* ext_ram    = (char*) 0x1800;
     uint16_t ext_ram_size     = 0x800;

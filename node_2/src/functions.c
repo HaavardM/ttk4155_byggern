@@ -13,9 +13,6 @@ void game_on_can_msg(can_message_t* msg_p) {
 	}
 }
 
-
-
-
 void send_score(int score){
 	can_message_t msg;
 	msg.id = MSG_SCORE;

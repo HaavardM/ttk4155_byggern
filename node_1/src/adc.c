@@ -5,6 +5,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+/*---Exposed functions---------------------------*/
 int adc_read(unsigned char channel) {
     volatile uint8_t* p = (uint8_t*) 0x1400;
     *p = 4 + channel;
