@@ -19,13 +19,13 @@ void pwm_set_prescale() {
 
 void pwm_init() {
     //Enable PWM on PB5
+    //Use fast PWM mode
     TCCR1A |= (1 << WGM11) | (1 << COM1A1) | (1 << COM1A0);
     TCCR1B |= (1 << WGM13) | (1 << WGM12);
     TCCR1B |= (1 << CS10);
     ICR1 = PWM_TIMER_STEPS;
     DDRB |= (1 << PB5);
     pwm_set_prescale();
-    
     pwm_set_duty(127);
 }
 
