@@ -8,7 +8,7 @@
 #include "pi.h"
 
 void handle_new_joystick_pos(can_message_t* msg_p) {
-    uint8_t setpoint = 0xFF - msg_p->data[0];
+    uint8_t setpoint = msg_p->data[0];
     pwm_set_duty(setpoint);
 }
 
